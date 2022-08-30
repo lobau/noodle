@@ -1,0 +1,404 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>µcalc</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
+    <script type="text/javascript" src="https://szimek.github.io/signature_pad/js/signature_pad.umd.js"></script>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧮</text></svg>">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: none;
+            outline: 1px solid rgba(255, 0, 0, 0.1);
+        }
+
+        body {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        nav {
+            flex: 1;
+            max-width: 16em;
+            color: dimgray;
+            background: GhostWhite;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+
+        }
+
+        button {
+            display: block;
+            text-align: left;
+            width: 100%;
+            font: 400 1rem/1rem sans;
+            padding: 1rem;
+            cursor: pointer;
+            outline: 1px solid rgba(255, 0, 0, 0.1);
+        }
+
+        .selected {
+            color: white;
+            background-color: mediumpurple;
+        }
+
+        main {
+            display: flex;
+            max-width: 100%;
+        }
+
+        textarea {
+            resize: none;
+            flex: 1;
+            margin: 0 auto;
+            min-height: 6em;
+            outline: none;
+            font-size: 18px;
+            line-height: 30px;
+            padding: 2em 1em 1em 1em;
+            border: none;
+            /* border-top: 1px dashed rgba(0, 0, 0, .15); */
+            font-family: monospace;
+            color: black;
+            letter-spacing: .02em;
+            background-size: 100% 30px;
+            background-position: 0 0;
+            background-image: linear-gradient(to bottom,
+                    white,
+                    white 29px,
+                    Gainsboro);
+            overflow: hidden;
+            height: calc(100vh - 3em);
+        }
+
+        #magic {
+            color: dimgray;
+            background-size: 100% 30px;
+            background-position: 0 0;
+            background-image: linear-gradient(to bottom,
+                    FloralWhite,
+                    FloralWhite 29px,
+                    BurlyWood);
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container main">
+        <div id="pre-auth-section" style="display:none;">
+            <button id="authlink">Sign in with Dropbox</button>
+        </div>
+
+        <div id="authed-section" style="display:none;">
+            <main>
+                <nav id="filelist"></nav>
+                <textarea id="math" autocomplete=off autocorrect=off autocapitalize=off data-persist=math></textarea>
+                <textarea id="magic" readonly></textarea>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        function loadFile(filePath) {
+            var dbx = new Dropbox.Dropbox({
+                accessToken: getAccessTokenFromUrl()
+            });
+
+            dbx.filesDownload({ path: '/' + filePath }).then(function (response) {
+                var blob = response.result.fileBlob;
+                var reader = new FileReader();
+                reader.addEventListener("loadend", function () {
+                    document.getElementById("math").textContent = reader.result;
+                    magic2math();
+                    console.log(reader.result); // will print out file content
+                });
+                reader.readAsText(blob);
+            }).catch(function (error) {
+                console.error(error);
+            })
+        }
+
+        // function uploadFile(data) {
+        //     const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
+        //     var dbx = new Dropbox.Dropbox({
+        //         accessToken: getAccessTokenFromUrl()
+        //     });
+
+        //     var epoch = new Date().valueOf();
+        //     let file = new File([data], epoch + ".png", { type: "image/png" });
+
+        //     document.getElementById('save').textContent = "Saving…";
+
+        //     if (file.size < UPLOAD_FILE_SIZE_LIMIT) {
+        //         // File is smaller than 150 Mb - use filesUpload API
+        //         dbx
+        //             .filesUpload({ path: "/" + file.name, contents: file })
+        //             .then(function (response) {
+        //                 document.getElementById('save').textContent = "Saved!";
+        //                 setTimeout(function () {
+        //                     document.getElementById('save').textContent = "Save";
+        //                 }, 3000);
+        //                 console.log(response);
+        //             })
+        //             .catch(function (error) {
+        //                 document.getElementById('save').textContent = "Error!";
+        //                 setTimeout(function () {
+        //                     document.getElementById('save').textContent = "Save";
+        //                 }, 3000);
+        //                 console.error(error);
+        //             });
+        //     } else {
+        //         // File is bigger than 150 Mb - use filesUploadSession* API
+        //         const maxBlob = 8 * 1000 * 1000; // 8Mb - Dropbox JavaScript API suggested max file / chunk size
+
+        //         var workItems = [];
+
+        //         var offset = 0;
+
+        //         while (offset < file.size) {
+        //             var chunkSize = Math.min(maxBlob, file.size - offset);
+        //             workItems.push(file.slice(offset, offset + chunkSize));
+        //             offset += chunkSize;
+        //         }
+
+        //         const task = workItems.reduce((acc, blob, idx, items) => {
+        //             if (idx == 0) {
+        //                 // Starting multipart upload of file
+        //                 return acc.then(function () {
+        //                     return dbx
+        //                         .filesUploadSessionStart({ close: false, contents: blob })
+        //                         .then((response) => response.session_id);
+        //                 });
+        //             } else if (idx < items.length - 1) {
+        //                 // Append part to the upload session
+        //                 return acc.then(function (sessionId) {
+        //                     var cursor = { session_id: sessionId, offset: idx * maxBlob };
+        //                     return dbx
+        //                         .filesUploadSessionAppendV2({
+        //                             cursor: cursor,
+        //                             close: false,
+        //                             contents: blob
+        //                         })
+        //                         .then(() => sessionId);
+        //                 });
+        //             } else {
+        //                 // Last chunk of data, close session
+        //                 return acc.then(function (sessionId) {
+        //                     var cursor = { session_id: sessionId, offset: file.size - blob.size };
+        //                     var commit = {
+        //                         path: "/" + file.name,
+        //                         mode: "add",
+        //                         autorename: true,
+        //                         mute: false
+        //                     };
+        //                     return dbx.filesUploadSessionFinish({
+        //                         cursor: cursor,
+        //                         commit: commit,
+        //                         contents: blob
+        //                     });
+        //                 });
+        //             }
+        //         }, Promise.resolve());
+
+        //         task
+        //             .then(function (result) {
+        //                 console.log("File uploaded");
+        //             })
+        //             .catch(function (error) {
+        //                 console.error(error);
+        //             });
+        //     }
+        //     return false;
+        // }
+
+        var math = document.querySelector('#math'),
+            magic = document.querySelector('#magic')
+        function magic2math() {
+            localStorage.setItem("calculations", math.value);
+            var text = math.value.split('\n'),
+                output = ''
+            text.map(function (a) {
+                var line = ''
+                eval(a) && (line += eval(a))
+                output += line + '\n'
+            });
+            magic.value = ''
+            magic.value = output
+        }
+        window.addEventListener('load', function () {
+            math.textContent = localStorage.getItem("calculations")
+                ? localStorage.getItem("calculations")
+                : `pizza = 5\nperson = 12\npizza / person`;
+        })
+        window.addEventListener('load', magic2math)
+        math.addEventListener('paste', magic2math)
+        math.addEventListener('input', magic2math)
+        math.addEventListener('keyup', magic2math)
+
+    </script>
+
+    <script>
+
+            (function (window) {
+                window.utils = {
+                    parseQueryString(str) {
+                        const ret = Object.create(null);
+
+                        if (typeof str !== 'string') {
+                            return ret;
+                        }
+
+                        str = str.trim().replace(/^(\?|#|&)/, '');
+
+                        if (!str) {
+                            return ret;
+                        }
+
+                        str.split('&').forEach((param) => {
+                            const parts = param.replace(/\+/g, ' ').split('=');
+                            // Firefox (pre 40) decodes `%3D` to `=`
+                            // https://github.com/sindresorhus/query-string/pull/37
+                            let key = parts.shift();
+                            let val = parts.length > 0 ? parts.join('=') : undefined;
+
+                            key = decodeURIComponent(key);
+
+                            // missing `=` should be `null`:
+                            // http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
+                            val = val === undefined ? null : decodeURIComponent(val);
+
+                            if (ret[key] === undefined) {
+                                ret[key] = val;
+                            } else if (Array.isArray(ret[key])) {
+                                ret[key].push(val);
+                            } else {
+                                ret[key] = [ret[key], val];
+                            }
+                        });
+
+                        return ret;
+                    },
+                };
+            }(window));
+
+        var CLIENT_ID = 'nqh4k19borzokuy';
+        // Parses the url and gets the access token if it is in the urls hash
+        function getAccessTokenFromUrl() {
+            return "sl.BOTpkjeQvF3S5UErxtHQ_abPzJO1LsCwhqpSTHZBZP8gZ6NgS6waGlP7ezfQ4SBg_Rrjx1wJ28dBp_IM14JGWDlD0U1MtcNnzqBr-FO5qOLTn31Jf0mnd2c_fPtjJipvDkwC30U";
+            // return utils.parseQueryString(window.location.hash).access_token;
+        }
+
+        // If the user was just redirected from authenticating, the urls hash will
+        // contain the access token.
+        function isAuthenticated() {
+            return !!getAccessTokenFromUrl();
+        }
+
+        // Render a list of items to #files
+        function renderItems(items) {
+            var filesContainer = document.getElementById('filelist');
+
+            const selectedFile = new URLSearchParams(window.location.search).get('selectedFile');
+            // console.log(selectedFile);
+
+            items.forEach(function (item) {
+                // console.log(item);
+                var button = document.createElement('button');
+                button.textContent = item.name;
+                if (selectedFile == item.name) {
+                    button.classList.add("selected");
+                }
+                button.onclick = () => {
+                    loadFile(item.name);
+                    
+                    // Update the URL parameters
+                    const searchParams = new URLSearchParams(location.search);
+                    searchParams.set('selectedFile', item.name);
+                    location.search = searchParams.toString();
+                };
+                filesContainer.appendChild(button);
+            });
+        }
+
+        // function replaceUrlParam(url, paramName, paramValue) {
+        //     if (paramValue == null) {
+        //         paramValue = '';
+        //     }
+        //     var pattern = new RegExp('\\b(' + paramName + '=).*?(&|#|$)');
+        //     if (url.search(pattern) >= 0) {
+        //         return url.replace(pattern, '$1' + paramValue + '$2');
+        //     }
+        //     url = url.replace(/[?#]$/, '');
+        //     return url + (url.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue;
+        // }
+
+        // This example keeps both the authenticate and non-authenticated setions
+        // in the DOM and uses this function to show/hide the correct section.
+        function showPageSection(elementId) {
+            document.getElementById(elementId).style.display = 'block';
+        }
+
+        // function getSelectedFile() {
+        //     const queryString = window.location.search;
+        //     const urlParams = new URLSearchParams(queryString);
+        //     const selectedFile = urlParams.get('selectedFile');
+
+        //     return selectedFile;
+        // }
+
+        if (isAuthenticated()) {
+            showPageSection('authed-section');
+
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const selectedFile = urlParams.get('selectedFile');
+
+            if (selectedFile) {
+                loadFile(selectedFile);
+            } else {
+                // load the first item?
+            }
+
+            // Create an instance of Dropbox with the access token and use it to
+            // fetch and render the files in the users root directory.
+            var dbx = new Dropbox.Dropbox({ accessToken: getAccessTokenFromUrl() });
+            dbx.filesListFolder({ path: '' })
+                .then(function (response) {
+                    renderItems(response.result.entries);
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        } else {
+            showPageSection('pre-auth-section');
+
+            // Set the login anchors href using dbx.getAuthenticationUrl()
+            var dbx = new Dropbox.Dropbox({ clientId: CLIENT_ID });
+            var authUrl = dbx.auth.getAuthenticationUrl('https://lobau.io/ucalc/')
+                .then((authUrl) => {
+                    // document.getElementById('authlink').href = authUrl;
+                    document.getElementById('authlink').addEventListener('click', () => {
+                        window.location = authUrl;
+                    });
+                })
+        }
+
+
+    </script>
+</body>
+
+</html>

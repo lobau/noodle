@@ -6,7 +6,7 @@
     <title>Abacus</title>
     <script type="text/javascript" src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
     <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧮</text></svg>">
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
 
     <style>
         :root {
@@ -178,6 +178,26 @@
             }).catch(function (error) {
                 console.error(error);
             })
+        }
+
+        function newFile(filename) {
+            var dbx = new Dropbox.Dropbox({
+                accessToken: getAccessTokenFromUrl()
+            });
+            let file = new File(["40 + 2"], filename, { type: "text/plain" });
+
+            dbx.filesUpload({ path: "/" + file.name, contents: file })
+                .then(function (response) {
+                    console.log(response);
+
+                    // Update the URL parameters
+                    const searchParams = new URLSearchParams(location.search);
+                    searchParams.set('selectedFile', filename);
+                    location.search = searchParams.toString();
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
         }
 
         function saveFile() {
@@ -394,6 +414,15 @@
                 });
                 filesContainer.appendChild(button);
             });
+
+            // console.log(item);
+            var newFileButton = document.createElement('button');
+            newFileButton.textContent = "➕ New sheet";
+            newFileButton.addEventListener("click", function () {
+                let epoch = new Date().valueOf();
+                newFile(epoch);
+            });
+            filesContainer.appendChild(newFileButton);
         }
 
         // This example keeps both the authenticate and non-authenticated setions

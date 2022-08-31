@@ -1,0 +1,131 @@
+:root {
+    --shadow-modal:
+        0px 14px 40px rgba(0, 0, 0, 0.023),
+        0px 7px 20px rgba(0, 0, 0, 0.026),
+        0px 2px 3px rgba(0, 0, 0, 0.04);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    /* outline: 1px solid rgba(255, 0, 0, 0.1); */
+}
+
+body {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+nav {
+    flex: 1;
+    max-width: 16em;
+    color: dimgray;
+    background: GhostWhite;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+
+}
+
+button {
+    display: block;
+    text-align: left;
+    width: 100%;
+    font: 400 1rem/1rem sans;
+    padding: 1rem;
+    cursor: pointer;
+    /* border-radius: 0.5rem; */
+    background-color: white;
+    /* box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15); */
+    /* box-shadow: var(--shadow-modal); */
+    /* outline: 1px solid rgba(255, 0, 0, 0.1); */
+}
+
+/* button:hover {
+    background-color: antiquewhite;
+} */
+
+.selected {
+    color: white;
+    background-color: mediumpurple;
+}
+
+main {
+    display: flex;
+    max-width: 100%;
+}
+
+textarea {
+    resize: none;
+    flex: 1;
+    margin: 0 auto;
+    min-height: 6em;
+    outline: none;
+    font-size: 18px;
+    line-height: 30px;
+    padding: 2em;
+    border: none;
+    /* border-top: 1px dashed rgba(0, 0, 0, .15); */
+    font-family: monospace;
+    color: black;
+    letter-spacing: .02em;
+    background-size: 100% 30px;
+    background-position: 0 0;
+    background-image: linear-gradient(to bottom,
+            white,
+            white 29px,
+            Gainsboro);
+    overflow: hidden;
+    height: calc(100vh - 4em);
+}
+
+#magic {
+    color: dimgray;
+    background-size: 100% 30px;
+    background-position: 0 0;
+    background-image: linear-gradient(to bottom,
+            FloralWhite,
+            FloralWhite 29px,
+            BurlyWood);
+}
+
+#save {
+    position: fixed;
+    font-size: 1.5rem;
+    right: 2rem;
+    bottom: 2rem;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: all 0.4s ease;
+    box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.85), var(--shadow-modal);
+}
+
+.default {
+    background-color: white;
+}
+
+.saving {
+    transform: scale(1.1);
+    background-color: Coral;
+}
+
+.error {
+    transform: scale(1.25);
+    background-color: HotPink;
+}
+
+.saved {
+    transform: scale(1.1);
+    background-color: PaleGreen;
+}

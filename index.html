@@ -5,143 +5,24 @@
     <meta charset="utf-8">
     <title>Abacus</title>
     <script type="text/javascript" src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.63.1/lib/codemirror.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.3/mode/markdown/markdown.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.3/mode/xml/xml.min.js"></script>
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.63.1/lib/codemirror.min.css" />
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.3/theme/material.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.3/theme/nord.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.3/theme/juejin.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.3/theme/base16-light.min.css" />
+    
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
-
-    <style>
-        :root {
-            --shadow-modal:
-                0px 14px 40px rgba(0, 0, 0, 0.023),
-                0px 7px 20px rgba(0, 0, 0, 0.026),
-                0px 2px 3px rgba(0, 0, 0, 0.04);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            border: none;
-            /* outline: 1px solid rgba(255, 0, 0, 0.1); */
-        }
-
-        body {
-            -moz-user-select: none;
-            -webkit-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        nav {
-            flex: 1;
-            max-width: 16em;
-            color: dimgray;
-            background: GhostWhite;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: start;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-
-        }
-
-        button {
-            display: block;
-            text-align: left;
-            width: 100%;
-            font: 400 1rem/1rem sans;
-            padding: 1rem;
-            cursor: pointer;
-            /* border-radius: 0.5rem; */
-            background-color: white;
-            /* box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15); */
-            /* box-shadow: var(--shadow-modal); */
-            /* outline: 1px solid rgba(255, 0, 0, 0.1); */
-        }
-
-        /* button:hover {
-            background-color: antiquewhite;
-        } */
-
-        .selected {
-            color: white;
-            background-color: mediumpurple;
-        }
-
-        main {
-            display: flex;
-            max-width: 100%;
-        }
-
-        textarea {
-            resize: none;
-            flex: 1;
-            margin: 0 auto;
-            min-height: 6em;
-            outline: none;
-            font-size: 18px;
-            line-height: 30px;
-            padding: 2em;
-            border: none;
-            /* border-top: 1px dashed rgba(0, 0, 0, .15); */
-            font-family: monospace;
-            color: black;
-            letter-spacing: .02em;
-            background-size: 100% 30px;
-            background-position: 0 0;
-            background-image: linear-gradient(to bottom,
-                    white,
-                    white 29px,
-                    Gainsboro);
-            overflow: hidden;
-            height: calc(100vh - 4em);
-        }
-
-        #magic {
-            color: dimgray;
-            background-size: 100% 30px;
-            background-position: 0 0;
-            background-image: linear-gradient(to bottom,
-                    FloralWhite,
-                    FloralWhite 29px,
-                    BurlyWood);
-        }
-
-        #save {
-            position: fixed;
-            font-size: 1.5rem;
-            right: 2rem;
-            bottom: 2rem;
-            width: 4rem;
-            height: 4rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            transition: all 0.4s ease;
-            box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.85), var(--shadow-modal);
-        }
-
-        .default {
-            background-color: white;
-        }
-
-        .saving {
-            transform: scale(1.1);
-            background-color: Coral;
-        }
-
-        .error {
-            transform: scale(1.25);
-            background-color: HotPink;
-        }
-
-        .saved {
-            transform: scale(1.1);
-            background-color: PaleGreen;
-        }
-
-    </style>
+    <link rel="stylesheet" href="style.css" />
+    <script type="text/javascript" src="dropbox.js"></script>
 </head>
 
 <body>
@@ -161,155 +42,9 @@
     </div>
 
     <script>
-        function loadFile(filePath) {
-            var dbx = new Dropbox.Dropbox({
-                accessToken: getAccessTokenFromUrl()
-            });
-
-            dbx.filesDownload({ path: '/' + filePath }).then(function (response) {
-                var blob = response.result.fileBlob;
-                var reader = new FileReader();
-                reader.addEventListener("loadend", function () {
-                    document.getElementById("math").value = reader.result;
-                    magic2math();
-                    // console.log(reader.result); // will print out file content
-                });
-                reader.readAsText(blob);
-            }).catch(function (error) {
-                console.error(error);
-            })
-        }
-
-        function newFile(filename) {
-            var dbx = new Dropbox.Dropbox({
-                accessToken: getAccessTokenFromUrl()
-            });
-            let file = new File(["40 + 2"], filename, { type: "text/plain" });
-
-            dbx.filesUpload({ path: "/" + file.name, contents: file })
-                .then(function (response) {
-                    console.log(response);
-
-                    // Update the URL parameters
-                    const searchParams = new URLSearchParams(location.search);
-                    searchParams.set('selectedFile', filename);
-                    location.search = searchParams.toString();
-                })
-                .catch(function (error) {
-                    console.error(error);
-                });
-        }
-
-        function saveFile() {
-            const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
-            const textContent = document.getElementById("math").value;
-            const selectedFile = new URLSearchParams(window.location.search).get('selectedFile');
-
-            if (selectedFile && textContent) {
-                var dbx = new Dropbox.Dropbox({
-                    accessToken: getAccessTokenFromUrl()
-                });
-
-                console.log(textContent);
-
-                let file = new File([textContent], selectedFile, { type: "text/plain" });
-
-                document.getElementById('save').className = "saving";
-
-                if (file.size < UPLOAD_FILE_SIZE_LIMIT) {
-                    // File is smaller than 150 Mb - use filesUpload API
-                    dbx
-                        .filesUpload({ path: "/" + file.name, contents: file, mode: 'overwrite', mute: true })
-                        .then(function (response) {
-                            // document.getElementById('save').textContent = "Saved!";
-                            document.getElementById('save').className = "saved";
-                            setTimeout(function () {
-                                document.getElementById('save').className = "default";
-                                // document.getElementById('save').textContent = "Save";
-                            }, 3000);
-                            // console.log(response);
-                        })
-                        .catch(function (error) {
-                            document.getElementById('save').className = "error";
-                            // document.getElementById('save').textContent = "Error!";
-                            setTimeout(function () {
-                                document.getElementById('save').className = "default";
-                                // document.getElementById('save').textContent = "Save";
-                            }, 3000);
-                            console.error(error);
-                        });
-                }
-                // else {
-                //     // File is bigger than 150 Mb - use filesUploadSession* API
-                //     const maxBlob = 8 * 1000 * 1000; // 8Mb - Dropbox JavaScript API suggested max file / chunk size
-
-                //     var workItems = [];
-
-                //     var offset = 0;
-
-                //     while (offset < file.size) {
-                //         var chunkSize = Math.min(maxBlob, file.size - offset);
-                //         workItems.push(file.slice(offset, offset + chunkSize));
-                //         offset += chunkSize;
-                //     }
-
-                //     const task = workItems.reduce((acc, blob, idx, items) => {
-                //         if (idx == 0) {
-                //             // Starting multipart upload of file
-                //             return acc.then(function () {
-                //                 return dbx
-                //                     .filesUploadSessionStart({ close: false, contents: blob })
-                //                     .then((response) => response.session_id);
-                //             });
-                //         } else if (idx < items.length - 1) {
-                //             // Append part to the upload session
-                //             return acc.then(function (sessionId) {
-                //                 var cursor = { session_id: sessionId, offset: idx * maxBlob };
-                //                 return dbx
-                //                     .filesUploadSessionAppendV2({
-                //                         cursor: cursor,
-                //                         close: false,
-                //                         contents: blob
-                //                     })
-                //                     .then(() => sessionId);
-                //             });
-                //         } else {
-                //             // Last chunk of data, close session
-                //             return acc.then(function (sessionId) {
-                //                 var cursor = { session_id: sessionId, offset: file.size - blob.size };
-                //                 var commit = {
-                //                     path: "/" + file.name,
-                //                     mode: "add",
-                //                     autorename: true,
-                //                     mute: false
-                //                 };
-                //                 return dbx.filesUploadSessionFinish({
-                //                     cursor: cursor,
-                //                     commit: commit,
-                //                     contents: blob
-                //                 });
-                //             });
-                //         }
-                //     }, Promise.resolve());
-
-                //     task
-                //         .then(function (result) {
-                //             console.log("File uploaded");
-                //         })
-                //         .catch(function (error) {
-                //             console.error(error);
-                //         });
-                // }
-            }
-
-
-            return false;
-        }
-
         var math = document.querySelector('#math'),
             magic = document.querySelector('#magic')
         function magic2math() {
-            // localStorage.setItem("calculations", math.value);
             var text = math.value.split('\n'),
                 output = ''
             text.map(function (a) {
@@ -320,85 +55,30 @@
             magic.value = ''
             magic.value = output
         }
-        // window.addEventListener('load', function () {
-        //     math.textContent = localStorage.getItem("calculations")
-        //         ? localStorage.getItem("calculations")
-        //         : `pizza = 5\nperson = 12\npizza / person`;
-        // })
         window.addEventListener('load', magic2math)
         math.addEventListener('paste', magic2math)
         math.addEventListener('input', magic2math)
         math.addEventListener('keyup', magic2math)
-
     </script>
 
     <script>
-
-            (function (window) {
-                window.utils = {
-                    parseQueryString(str) {
-                        const ret = Object.create(null);
-
-                        if (typeof str !== 'string') {
-                            return ret;
-                        }
-
-                        str = str.trim().replace(/^(\?|#|&)/, '');
-
-                        if (!str) {
-                            return ret;
-                        }
-
-                        str.split('&').forEach((param) => {
-                            const parts = param.replace(/\+/g, ' ').split('=');
-                            // Firefox (pre 40) decodes `%3D` to `=`
-                            // https://github.com/sindresorhus/query-string/pull/37
-                            let key = parts.shift();
-                            let val = parts.length > 0 ? parts.join('=') : undefined;
-
-                            key = decodeURIComponent(key);
-
-                            // missing `=` should be `null`:
-                            // http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
-                            val = val === undefined ? null : decodeURIComponent(val);
-
-                            if (ret[key] === undefined) {
-                                ret[key] = val;
-                            } else if (Array.isArray(ret[key])) {
-                                ret[key].push(val);
-                            } else {
-                                ret[key] = [ret[key], val];
-                            }
-                        });
-
-                        return ret;
-                    },
-                };
-            }(window));
-
         var CLIENT_ID = 'nqh4k19borzokuy';
-        // Parses the url and gets the access token if it is in the urls hash
+
         function getAccessTokenFromUrl() {
-            // return "hardcoded";
-            return utils.parseQueryString(window.location.hash).access_token;
+            const searchParams = new URLSearchParams(location.search);
+            return searchParams.get('access_token');
         }
 
-        // If the user was just redirected from authenticating, the urls hash will
-        // contain the access token.
         function isAuthenticated() {
             return !!getAccessTokenFromUrl();
         }
 
 
-        // Render a list of items to #files
         function renderItems(items) {
             var filesContainer = document.getElementById('filelist');
-
             const selectedFile = new URLSearchParams(window.location.search).get('selectedFile');
-            // console.log(selectedFile);
 
             items.forEach(function (item) {
-                // console.log(item);
                 var button = document.createElement('button');
                 button.textContent = "📄 " + item.name;
                 if (selectedFile == item.name) {
@@ -415,7 +95,6 @@
                 filesContainer.appendChild(button);
             });
 
-            // console.log(item);
             var newFileButton = document.createElement('button');
             newFileButton.textContent = "➕ New sheet";
             newFileButton.addEventListener("click", function () {
@@ -425,8 +104,6 @@
             filesContainer.appendChild(newFileButton);
         }
 
-        // This example keeps both the authenticate and non-authenticated setions
-        // in the DOM and uses this function to show/hide the correct section.
         function showPageSection(elementId) {
             document.getElementById(elementId).style.display = 'block';
         }
@@ -442,6 +119,7 @@
                 loadFile(selectedFile);
             } else {
                 // load the first item?
+                // onboarding?
             }
 
             // Create an instance of Dropbox with the access token and use it to

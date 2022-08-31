@@ -3,6 +3,7 @@
         0px 14px 40px rgba(0, 0, 0, 0.023),
         0px 7px 20px rgba(0, 0, 0, 0.026),
         0px 2px 3px rgba(0, 0, 0, 0.04);
+
 }
 
 * {
@@ -13,6 +14,7 @@
 }
 
 body {
+    font-size: 16px;
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
@@ -20,17 +22,18 @@ body {
 }
 
 nav {
-    flex: 1;
-    max-width: 16em;
+    /* flex: 1; */
+    /* max-width: 16em; */
     color: dimgray;
     background: GhostWhite;
+    border-right: 1px dashed mediumpurple;
 
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    gap: 1rem;
-    padding: 1rem;
+    /* gap: 1rem; */
+    /* padding: 1rem; */
 
 }
 
@@ -42,7 +45,7 @@ button {
     padding: 1rem;
     cursor: pointer;
     /* border-radius: 0.5rem; */
-    background-color: white;
+    background-color: transparent;
     /* box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15); */
     /* box-shadow: var(--shadow-modal); */
     /* outline: 1px solid rgba(255, 0, 0, 0.1); */
@@ -58,42 +61,28 @@ button {
 }
 
 main {
-    display: flex;
-    max-width: 100%;
+    /* position: absolute; */
+    /* inset: 0px; */
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    grid-template-columns: 16em 1fr 1fr;
+    /* max-width: 100%; */
+    /* height: 100%; */
 }
 
-textarea {
-    resize: none;
+.pane {
     flex: 1;
-    margin: 0 auto;
-    min-height: 6em;
-    outline: none;
-    font-size: 18px;
-    line-height: 30px;
-    padding: 2em;
-    border: none;
-    /* border-top: 1px dashed rgba(0, 0, 0, .15); */
-    font-family: monospace;
-    color: black;
-    letter-spacing: .02em;
-    background-size: 100% 30px;
-    background-position: 0 0;
-    background-image: linear-gradient(to bottom,
-            white,
-            white 29px,
-            Gainsboro);
-    overflow: hidden;
-    height: calc(100vh - 4em);
+    height: 100%;
+    /* width: 100%; */
+    /* height: 100vh; */
 }
 
-#magic {
-    color: dimgray;
-    background-size: 100% 30px;
-    background-position: 0 0;
-    background-image: linear-gradient(to bottom,
-            FloralWhite,
-            FloralWhite 29px,
-            BurlyWood);
+.pane > * {
+    position: relative;
+    height: 100%;
+    /* width: 100%; */
+    /* height: 100vh; */
 }
 
 #save {

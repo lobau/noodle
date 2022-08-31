@@ -1,0 +1,148 @@
+#render {
+    /* width: 100%; */
+    overflow-y: auto;
+    border-left: 1px dashed lightgray;
+    font-family: monospace;
+    font-size: 1rem;
+    line-height: 32px;
+    padding: 6px 2rem 0 2rem;
+    color: black;
+    background-size: 100% 32px;
+    background-position: 0 6px;
+    background-image: linear-gradient(to bottom,
+            FloralWhite,
+            FloralWhite 31px,
+            BurlyWood);
+}
+
+#render > * {
+    /* outline: 1px solid red; */
+    margin-bottom: 2rem;
+}
+
+/* #render > ul,
+#render > blockquote > ul {
+    list-style: default;
+    margin-left: 20px;
+} */
+/* #render > ul li,
+#render > blockquote > ul li {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 2rem;
+    color: var(--c-mochi0);
+} */
+/* #render > blockquote > ul li {
+    color: var(--c-banana0);
+} */
+/* #render > p > a,
+#render > p > a:link,
+#render > p > a:visited {
+    display: inline;
+    position: relative;
+    padding: 2px;
+    text-decoration: none;
+    color: var(--c-taro30);
+    font-weight: 700;
+}
+#render > p > a::before {
+    transform: scaleY(0.07);
+    transform-origin: bottom right;
+}
+#render > p > a:hover::before {
+    transform: scaleY(1);
+    transform-origin: bottom left;
+    background: var(--c-taro10);
+}
+#render > p > a::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    inset: 0 0 0 0;
+    background: var(--c-taro15);
+    z-index: -1;
+    transition: all 0.25s ease;
+} */
+#render > h1,
+#render > h2,
+#render > h3,
+#render > h4,
+#render > h5,
+#render > h6 {
+    font-size: 1rem;
+    color: mediumpurple;
+    margin: 0;
+    display: block;
+    font-family: monospace;
+    font-weight: 700;
+    text-align: left;
+    letter-spacing: 0;
+}
+#render > h1 {
+    text-transform: uppercase;
+    color: DarkSlateBlue;
+}
+/* #render > h1 {
+    font-size: 3rem;
+    line-height: 3rem;
+    margin-bottom: 0;
+    margin-top: 2rem;
+}
+#render > h2 {
+    font-size: 2rem;
+    line-height: 2rem;
+    margin-bottom: 0;
+    margin-top: 6rem;
+}
+#render > h3 {
+    font-size: 1.8rem;
+    line-height: 2.4rem;
+    margin-bottom: 0;
+    margin-top: 6rem;
+} */
+/* #render > p {
+    margin-bottom: 1rem;
+} */
+#render > p > img {
+    width: calc(100% + 24rem);
+    height: auto;
+    border-radius: var(--br-large);
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    margin-left: -12rem;
+    box-shadow: var(--shadow-modal);
+}
+#render > blockquote {
+    padding: 0;
+    padding: 0 0.5rem;
+    /* width: calc(100% + 1rem); */
+    outline: 1px dashed gray;
+    margin-left: -0.5rem;
+    /* background: white; */
+    border-radius: 0.5rem;
+    /* margin-top: 2rem; */
+    /* margin-bottom: 2rem; */
+}
+#render > blockquote > p {
+    color: var(--c-banana0);
+    margin-bottom: 1rem;
+}
+#render > p > mark,
+#render > blockquote > p > mark {
+    padding: 6px 8px;
+    background: var(--c-taro10);
+    color: var(--c-mochi0);
+    font-size: smaller;
+    font-weight: 700;
+    border-radius: 4px;
+}
+
+#render > table {
+    border: 1px solid red;
+}
+

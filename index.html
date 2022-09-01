@@ -3,26 +3,24 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Abacus</title>
-    <script type="text/javascript" src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
-    
+    <title>Sundown</title>
+    <script src="https://cdn.jsdelivr.net/npm/dropbox@10.32.0/dist/Dropbox-sdk.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fcal/dist/fcal.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.63.1/lib/codemirror.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.3/mode/markdown/markdown.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.3/mode/xml/xml.min.js"></script>
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.63.1/lib/codemirror.min.css" />
-  
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.3/theme/material.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.3/theme/nord.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.3/theme/juejin.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.3/theme/base16-light.min.css" />
-    
     <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌇</text></svg>">
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="syntax.css" />
+    <link rel="stylesheet" href="render.css" />
+
+    <script type="text/javascript" src="utils.js"></script>
     <script type="text/javascript" src="dropbox.js"></script>
+    <script type="text/javascript" src="markdown.js"></script>
 </head>
 
 <body>
@@ -34,120 +32,19 @@
         <div id="authed-section" style="display:none;">
             <main>
                 <nav id="filelist"></nav>
-                <textarea id="math" autocomplete=off autocorrect=off autocapitalize=off data-persist=math></textarea>
-                <textarea id="magic" readonly></textarea>
+                <div class="pane">
+                    <textarea id="editor" style="visibility: hidden; display: none;"></textarea>
+                </div>
+                <div class="pane">
+                    <div id="render"></div>
+                </div>
+                
+                
             </main>
             <button id="save" class="default" onclick="saveFile()">💾</button>
         </div>
     </div>
-
-    <script>
-        var math = document.querySelector('#math'),
-            magic = document.querySelector('#magic')
-        function magic2math() {
-            var text = math.value.split('\n'),
-                output = ''
-            text.map(function (a) {
-                var line = ''
-                eval(a) && (line += eval(a))
-                output += line + '\n'
-            });
-            magic.value = ''
-            magic.value = output
-        }
-        window.addEventListener('load', magic2math)
-        math.addEventListener('paste', magic2math)
-        math.addEventListener('input', magic2math)
-        math.addEventListener('keyup', magic2math)
-    </script>
-
-    <script>
-        var CLIENT_ID = 'nqh4k19borzokuy';
-
-        function getAccessTokenFromUrl() {
-            const searchParams = new URLSearchParams(location.search);
-            return searchParams.get('access_token');
-        }
-
-        function isAuthenticated() {
-            return !!getAccessTokenFromUrl();
-        }
-
-
-        function renderItems(items) {
-            var filesContainer = document.getElementById('filelist');
-            const selectedFile = new URLSearchParams(window.location.search).get('selectedFile');
-
-            items.forEach(function (item) {
-                var button = document.createElement('button');
-                button.textContent = "📄 " + item.name;
-                if (selectedFile == item.name) {
-                    button.classList.add("selected");
-                }
-                button.addEventListener("click", function () {
-                    loadFile(item.name);
-
-                    // Update the URL parameters
-                    const searchParams = new URLSearchParams(location.search);
-                    searchParams.set('selectedFile', item.name);
-                    location.search = searchParams.toString();
-                });
-                filesContainer.appendChild(button);
-            });
-
-            var newFileButton = document.createElement('button');
-            newFileButton.textContent = "➕ New sheet";
-            newFileButton.addEventListener("click", function () {
-                let epoch = new Date().valueOf();
-                newFile(epoch);
-            });
-            filesContainer.appendChild(newFileButton);
-        }
-
-        function showPageSection(elementId) {
-            document.getElementById(elementId).style.display = 'block';
-        }
-
-        if (isAuthenticated()) {
-            showPageSection('authed-section');
-
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            const selectedFile = urlParams.get('selectedFile');
-
-            if (selectedFile) {
-                loadFile(selectedFile);
-            } else {
-                // load the first item?
-                // onboarding?
-            }
-
-            // Create an instance of Dropbox with the access token and use it to
-            // fetch and render the files in the users root directory.
-            var dbx = new Dropbox.Dropbox({ accessToken: getAccessTokenFromUrl() });
-            dbx.filesListFolder({ path: '' })
-                .then(function (response) {
-                    renderItems(response.result.entries);
-                })
-                .catch(function (error) {
-                    console.error(error);
-                });
-        } else {
-            showPageSection('pre-auth-section');
-
-            // Set the login anchors href using dbx.getAuthenticationUrl()
-            var dbx = new Dropbox.Dropbox({ clientId: CLIENT_ID });
-            var authUrl = dbx.auth.getAuthenticationUrl('https://lobau.io/ucalc/')
-                .then((authUrl) => {
-                    // document.getElementById('authlink').href = authUrl;
-                    document.getElementById('authlink').addEventListener('click', () => {
-                        window.location = authUrl;
-                    });
-                })
-        }
-
-
-    </script>
+    <script type="text/javascript" src="script.js"></script>
 </body>
 
 </html>

@@ -1,7 +1,11 @@
+// function getAccessTokenFromUrl() {
+//     const searchParams = new URLSearchParams(location.search);
+//     return searchParams.get('access_token');
+// }
+
 function getAccessTokenFromUrl() {
-    const searchParams = new URLSearchParams(location.search);
-    return searchParams.get('access_token');
-}
+    return utils.parseQueryString(window.location.hash).access_token;
+   }
 
 function isAuthenticated() {
     return !!getAccessTokenFromUrl();
@@ -12,9 +16,11 @@ function renderItems(items) {
     var filesContainer = document.getElementById('filelist');
     const selectedFile = new URLSearchParams(window.location.search).get('selectedFile');
 
-    items.forEach(function (item) {
+    let possible_icons = ["📒", "📓", "📔", "📕", "📗", "📘", "📙"];
+
+    items.forEach(function (item, index) {
         var button = document.createElement('button');
-        button.textContent = "📄 " + item.name;
+        button.textContent = possible_icons[index % possible_icons.length] + " " + item.name;
         if (selectedFile == item.name) {
             button.classList.add("selected");
         }

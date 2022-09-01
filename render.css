@@ -5,8 +5,8 @@
     font-family: monospace;
     font-size: 1rem;
     line-height: 32px;
-    padding: 6px 2rem 0 2rem;
-    color: black;
+    padding: 5px 2rem 0 2rem;
+    color: dimgray;
     background-size: 100% 32px;
     background-position: 0 6px;
     background-image: linear-gradient(to bottom,
@@ -134,12 +134,14 @@
 }
 #render > p > mark,
 #render > blockquote > p > mark {
-    padding: 6px 8px;
-    background: var(--c-taro10);
-    color: var(--c-mochi0);
-    font-size: smaller;
+    padding: 4px 8px;
+    line-height: 1rem;
+    background: moccasin;
+    color: black;
+    font-size: 1rem;
     font-weight: 700;
     border-radius: 4px;
+
 }
 
 #render > table {

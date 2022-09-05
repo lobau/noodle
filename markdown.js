@@ -119,7 +119,7 @@ const render = () => {
     for(var i = 0; i < Lines.length; i++) {
       if(Lines[i].trim() != '') {
         try {
-          Output.push(fcalEngine.evaluate(Lines[i].toFormat().toString()));
+          Output.push(fcalEngine.evaluate(Lines[i].toString()).toFormat());
         }
         catch(err) {
           Output.push("Error parsing")

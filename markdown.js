@@ -86,16 +86,40 @@ const render = () => {
   let markdown = window.editor.getValue();
   let fcalEngine = new fcal.Fcal();
 
-  // body = markdown.replace(/{(.*?)}/gis, fcalEngine.evaluate("42  "));
-  body = markdown.replace(/{(.*?)}/gis, function (match, token) {
-    // remove { and } from the string
+  // First replace the {{ }} pairs with inline table
+  body_firstpass = markdown.replace(/{{(.*?)}}/gis, function (match, token) {
+    // remove {{ and }} from the string
+    let expression = match.slice(2,-2);
+    let Lines = expression.split('\n');
+    let Output = ["<table>"];
+    for(var i = 0; i < Lines.length; i++) {
+      if(Lines[i].trim() != '') {
+        try {
+          Output.push("<tr><td>" + Lines[i].trim() + "</td><td><mark>" + fcalEngine.evaluate(Lines[i].toString()) + "</mark></td></tr>");
+        }
+        catch(err) {
+          Output.push("Error parsing")
+          console.error(err.message);
+        }
+      }
+    }
+    Output.push("</table>");
+    return Output.join("\n");
+  });
+
+  // console.log(body_firstpass);
+
+  // Then replace the { } with inline values
+  body_secondpass = body_firstpass.replace(/{(.*?)}/gis, function (match, token) {
+    // remove {{ and }} from the string
     let expression = match.slice(1,-1);
+    // console.log(expression);
     let Lines = expression.split('\n');
     let Output = [];
     for(var i = 0; i < Lines.length; i++) {
       if(Lines[i].trim() != '') {
         try {
-          Output.push("<mark>" + fcalEngine.evaluate(Lines[i].toString()) + "</mark>  ");
+          Output.push("<mark>" + fcalEngine.evaluate(Lines[i].toString()) + "</mark>");
         }
         catch(err) {
           Output.push("Error parsing")
@@ -106,31 +130,8 @@ const render = () => {
     return Output.join("\n");
   });
 
+  // console.log(body_secondpass);
 
-  // console.log(newS);
-
-
-  // https://stackoverflow.com/questions/413071/regex-to-get-string-between-curly-braces
-
-
-
-  // let rawlines = markdown.slice(1);
-  // let Lines = markdown.split("\n"); //cut each state
-  // let Output = [];
-  // const fcal = new Fcal();
-
-  // var line;
-  // for (let i = 0; i < Lines.length; i++) {
-  // if(Lines[i].charAt(0) == "/") {
-  //   line = fcalEngine.evaluate(Lines[i].slice(1)) + "  ";
-  //   Output.push(line);
-  // } else {
-  //   Output.push(Lines[i]);
-  // }
-  // }
-
-  // let body = Output.join("\n");
-
-  document.getElementById("render").innerHTML = marked.parse(body);
+  document.getElementById("render").innerHTML = marked.parse(body_secondpass);
   // document.getElementById("render").innerHTML = body;
 };

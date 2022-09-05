@@ -1,38 +1,47 @@
 #render {
+    position: relative;
+    inset: 0px;
+    display: block;
     /* width: 100%; */
-    overflow-y: auto;
-    border-left: 1px dashed lightgray;
-    font-family: monospace;
+    /* overflow-y: auto; */
+    /* height: 100vh; */
+    /* border-left: 1px dashed lightgray; */
+    font-family: system-ui;
     font-size: 1rem;
     line-height: 32px;
-    padding: 5px 2rem 0 2rem;
-    color: dimgray;
-    background-size: 100% 32px;
+    padding: 2rem 4rem;
+    /* max-width: 24rem; */
+    /* margin: 0 auto; */
+    color: black;
+    /* background-color: FloralWhite; */
+    background-color: white;
+    overflow: auto;
+    /* background-size: 100% 32px;
     background-position: 0 6px;
     background-image: linear-gradient(to bottom,
             FloralWhite,
             FloralWhite 31px,
-            BurlyWood);
+            BurlyWood); */
 }
 
-#render > * {
+#render>* {
     /* outline: 1px solid red; */
     margin-bottom: 2rem;
 }
 
-/* #render > ul,
-#render > blockquote > ul {
+#render>ul,
+#render>blockquote>ul {
     list-style: default;
-    margin-left: 20px;
-} */
-/* #render > ul li,
-#render > blockquote > ul li {
-    font-family: var(--font-body);
+    margin-left: 2rem;
+}
+
+#render>ul li,
+#render>blockquote>ul li {
     font-weight: 400;
-    font-size: 1.2rem;
+    font-size: 1rem;
     line-height: 2rem;
-    color: var(--c-mochi0);
-} */
+}
+
 /* #render > blockquote > ul li {
     color: var(--c-banana0);
 } */
@@ -68,25 +77,26 @@
     z-index: -1;
     transition: all 0.25s ease;
 } */
-#render > h1,
-#render > h2,
-#render > h3,
-#render > h4,
-#render > h5,
-#render > h6 {
-    font-size: 1rem;
+#render>h1,
+#render>h2,
+#render>h3,
+#render>h4,
+#render>h5,
+#render>h6 {
+    /* font-size: 1rem; */
     color: mediumpurple;
-    margin: 0;
+    margin: 0 0 0.5rem 0;
     display: block;
-    font-family: monospace;
+    /* font-family: system-ui; */
     font-weight: 700;
     text-align: left;
     letter-spacing: 0;
 }
-#render > h1 {
+
+/* #render > h1 {
     text-transform: uppercase;
     color: DarkSlateBlue;
-}
+} */
 /* #render > h1 {
     font-size: 3rem;
     line-height: 3rem;
@@ -108,43 +118,95 @@
 /* #render > p {
     margin-bottom: 1rem;
 } */
-#render > p > img {
-    width: calc(100% + 24rem);
+#render>p>img {
+    width: 100%;
     height: auto;
-    border-radius: var(--br-large);
-    margin-bottom: 2rem;
-    margin-top: 2rem;
-    margin-left: -12rem;
+    border-radius: 1rem;
+    /* margin-bottom: 2rem;
+    margin-top: 2rem; */
     box-shadow: var(--shadow-modal);
 }
-#render > blockquote {
+
+#render>blockquote {
     padding: 0;
-    padding: 0 0.5rem;
+    padding: 1rem 2rem;
     /* width: calc(100% + 1rem); */
-    outline: 1px dashed gray;
-    margin-left: -0.5rem;
+    /* outline: 1px dashed gray; */
+    /* margin-left: -0.5rem; */
     /* background: white; */
     border-radius: 0.5rem;
+    background: white;
+    border: 1px solid gainsboro;
+    display: block;
     /* margin-top: 2rem; */
     /* margin-bottom: 2rem; */
 }
-#render > blockquote > p {
+
+/* #render > blockquote > p {
     color: var(--c-banana0);
     margin-bottom: 1rem;
-}
-#render > p > mark,
-#render > blockquote > p > mark {
-    padding: 4px 8px;
+} */
+
+mark {
+    padding: 2px 0.5rem;
+    margin: 0 4px;
     line-height: 1rem;
-    background: moccasin;
-    color: black;
+    background: LavenderBlush;
+    color: mediumpurple;
     font-size: 1rem;
     font-weight: 700;
-    border-radius: 4px;
+
+    max-width: 100%;
+    border-radius: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+table {
+    /* padding: 0.5rem 0; */
+    /* background-color: red; */
+    border-radius: 0.5rem;
+    background: white;
+    border: 1px solid gainsboro;
+    display: block;
+    table-layout: fixed;
+}
+
+thead,
+tbody {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    padding: 0.5rem 1rem;
 
 }
 
-#render > table {
-    border: 1px solid red;
+tr {
+    /* width: 100%; */
+    border-bottom: 1px solid gainsboro;
+    /* height: 1rem; */
 }
 
+th,
+td {
+    /* outline: 1px solid gainsboro; */
+    /* width: 100%; */
+    padding: 0.5rem 1rem;
+    /* height: 1rem; */
+    /* white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; */
+    border-right: 1px solid gainsboro;
+    /* text-align: left; */
+}
+
+tr>td:last-child,
+tr>th:last-child {
+    border-right: none;
+}
+
+
+tbody>tr:last-child {
+    border-bottom: none;
+}

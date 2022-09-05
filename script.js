@@ -58,7 +58,9 @@ if (isAuthenticated()) {
     window.editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
         mode: "markdown",
         theme: "uxmap",
-        lineNumbers: false,
+        scrollPastEnd: true,
+        highlightActiveLine: true,
+        lineNumbers: true,
         lineWrapping: true
     });
     window.editor.on('change', function (i, op) {

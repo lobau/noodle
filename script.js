@@ -100,7 +100,11 @@ if (isAuthenticated()) {
 
     // Set the login anchors href using dbx.getAuthenticationUrl()
     var dbx = new Dropbox.Dropbox({ clientId: CLIENT_ID });
-    var authUrl = dbx.auth.getAuthenticationUrl('https://lobau.io/ucalc/')
+    let protocol;
+    protocol = (window.location.hostname == "localhost") ? "http" : "https";
+    currentHost = protocol + "://" + window.location.host;
+    console.log(currentHost);
+    var authUrl = dbx.auth.getAuthenticationUrl(currentHost)
         .then((authUrl) => {
             document.getElementById('authlink').addEventListener('click', () => {
                 window.location = authUrl;

@@ -5,10 +5,19 @@
 
 function getAccessTokenFromUrl() {
     return utils.parseQueryString(window.location.hash).access_token;
-   }
+}
 
 function isAuthenticated() {
     return !!getAccessTokenFromUrl();
+}
+
+function stringToSeed(str) {
+    var values = [];
+    for (var i = 0, len = str.length; i < len; i++) {
+        values.push(str.charCodeAt(i));
+    }
+    // concatenatte and coerce to integer 
+    return values.join('') + 0;
 }
 
 
@@ -20,7 +29,9 @@ function renderItems(items) {
 
     items.forEach(function (item, index) {
         var button = document.createElement('button');
-        button.textContent = possible_icons[index % possible_icons.length] + " " + item.name;
+        var seed = stringToSeed(item.name) % possible_icons.length;
+        // console.log(item.name, seed, seed % possible_icons.length);
+        button.textContent = possible_icons[seed] + " " + item.name;
         if (selectedFile == item.name) {
             button.classList.add("selected");
         }

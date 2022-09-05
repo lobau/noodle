@@ -95,7 +95,7 @@ const render = () => {
     for(var i = 0; i < Lines.length; i++) {
       if(Lines[i].trim() != '') {
         try {
-          Output.push("<tr><td>" + Lines[i].trim() + "</td><td><mark>" + fcalEngine.evaluate(Lines[i].toString()) + "</mark></td></tr>");
+          Output.push("<tr><td>" + Lines[i].trim() + "</td><td>" + fcalEngine.evaluate(Lines[i].toString()) + "</td></tr>");
         }
         catch(err) {
           Output.push("Error parsing")
@@ -119,7 +119,7 @@ const render = () => {
     for(var i = 0; i < Lines.length; i++) {
       if(Lines[i].trim() != '') {
         try {
-          Output.push("<mark>" + fcalEngine.evaluate(Lines[i].toString()) + "</mark>");
+          Output.push(fcalEngine.evaluate(Lines[i].toString()));
         }
         catch(err) {
           Output.push("Error parsing")

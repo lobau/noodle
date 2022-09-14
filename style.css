@@ -12,6 +12,7 @@
     margin: 0;
     padding: 0;
     border: none;
+    border-collapse: collapse;
     /* outline: 1px solid rgba(255, 0, 0, 0.1); */
 }
 
@@ -28,7 +29,8 @@ nav {
     /* flex: 1; */
     /* max-width: 16em; */
     color: black;
-    background: GhostWhite;
+    background: seashell;
+    
     box-shadow: inset -1px 0 0 Gainsboro;
     /* outline: 1px dashed lavender; */
     /* outline-offset: -1px; */
@@ -51,13 +53,14 @@ button {
     font: 400 1rem/1rem sans;
     padding: 1rem;
     cursor: pointer;
-    background-color: transparent;
+    background-color: white;
     transition: border-left 0.2s ease;
+    box-shadow: inset -1px 0 0 Gainsboro;
     border-left: 0 solid lavender;
 }
 
 button:hover {
-    border-left: 0.5rem solid mediumpurple;
+    border-left: 0.5rem solid rebeccapurple;
 }
 
 button > * {
@@ -78,14 +81,14 @@ hr {
 } */
 
 .loading {
-    color: mediumpurple;
+    color: rebeccapurple;
     background-color: lavender;
     font-weight: 700;
 }
 
 .selected {
     color: white;
-    background-color: mediumpurple;
+    background-color: rebeccapurple;
     font-weight: 700;
 }
 

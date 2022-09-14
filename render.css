@@ -2,30 +2,16 @@
     position: relative;
     inset: 0px;
     display: block;
-    /* width: 100%; */
-    /* overflow-y: auto; */
-    /* height: 100vh; */
-    /* border-left: 1px dashed lightgray; */
     font-family: system-ui;
     font-size: 1rem;
     line-height: 32px;
     padding: 2rem 4rem;
-    /* max-width: 24rem; */
-    /* margin: 0 auto; */
     color: black;
-    /* background-color: FloralWhite; */
     background-color: white;
     overflow: auto;
-    /* background-size: 100% 32px;
-    background-position: 0 6px;
-    background-image: linear-gradient(to bottom,
-            FloralWhite,
-            FloralWhite 31px,
-            BurlyWood); */
 }
 
 #render>* {
-    /* outline: 1px solid red; */
     margin-bottom: 2rem;
 }
 
@@ -42,168 +28,85 @@
     line-height: 2rem;
 }
 
-/* #render > blockquote > ul li {
-    color: var(--c-banana0);
-} */
-/* #render > p > a,
-#render > p > a:link,
-#render > p > a:visited {
+a,
+a:link,
+a:visited {
     display: inline;
     position: relative;
     padding: 2px;
-    text-decoration: none;
-    color: var(--c-taro30);
+    color: rebeccapurple;
+    text-decoration-color: lightgray;
     font-weight: 700;
 }
-#render > p > a::before {
-    transform: scaleY(0.07);
-    transform-origin: bottom right;
+
+a:hover {
+    /* color: mediumpurple; */
+    text-decoration-color: mediumpurple;
 }
-#render > p > a:hover::before {
-    transform: scaleY(1);
-    transform-origin: bottom left;
-    background: var(--c-taro10);
+
+a:active {
+    text-decoration-color: darkorchid;
 }
-#render > p > a::before {
-    content: " ";
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    inset: 0 0 0 0;
-    background: var(--c-taro15);
-    z-index: -1;
-    transition: all 0.25s ease;
-} */
+
+
 #render>h1,
 #render>h2,
 #render>h3,
 #render>h4,
 #render>h5,
 #render>h6 {
-    /* font-size: 1rem; */
-    color: mediumpurple;
-    margin: 0 0 0.5rem 0;
+    color: rebeccapurple;
+    margin: 0 0 1rem 0;
     display: block;
-    /* font-family: system-ui; */
     font-weight: 700;
     text-align: left;
-    letter-spacing: 0;
 }
 
-/* #render > h1 {
-    text-transform: uppercase;
-    color: DarkSlateBlue;
-} */
-/* #render > h1 {
-    font-size: 3rem;
-    line-height: 3rem;
-    margin-bottom: 0;
-    margin-top: 2rem;
-}
-#render > h2 {
-    font-size: 2rem;
-    line-height: 2rem;
-    margin-bottom: 0;
-    margin-top: 6rem;
-}
-#render > h3 {
-    font-size: 1.8rem;
-    line-height: 2.4rem;
-    margin-bottom: 0;
-    margin-top: 6rem;
-} */
-/* #render > p {
-    margin-bottom: 1rem;
-} */
 #render>p>img {
     width: 100%;
     height: auto;
     border-radius: 1rem;
-    /* margin-bottom: 2rem;
-    margin-top: 2rem; */
     box-shadow: var(--shadow-modal);
 }
 
 #render>blockquote {
     padding: 0;
-    padding: 1rem 2rem;
-    /* width: calc(100% + 1rem); */
-    /* outline: 1px dashed gray; */
-    /* margin-left: -0.5rem; */
-    /* background: white; */
+    padding: 0.5rem 1rem;
     border-radius: 0.5rem;
-    background: white;
+    background: seashell;
     border: 1px solid gainsboro;
     display: block;
-    /* margin-top: 2rem; */
-    /* margin-bottom: 2rem; */
-}
-
-/* #render > blockquote > p {
-    color: var(--c-banana0);
-    margin-bottom: 1rem;
-} */
-
-mark {
-    padding: 2px 0.5rem;
-    margin: 0 4px;
-    line-height: 1rem;
-    background: LavenderBlush;
-    color: mediumpurple;
-    font-size: 1rem;
-    font-weight: 700;
-
-    max-width: 100%;
-    border-radius: 1rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 table {
-    /* padding: 0.5rem 0; */
-    /* background-color: red; */
     border-radius: 0.5rem;
     background: white;
     border: 1px solid gainsboro;
-    display: block;
-    table-layout: fixed;
-}
-
-thead,
-tbody {
-    display: table;
     width: 100%;
-    border-collapse: collapse;
-    padding: 0.5rem 1rem;
-
 }
 
 tr {
-    /* width: 100%; */
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    white-space: nowrap;
     border-bottom: 1px solid gainsboro;
-    /* height: 1rem; */
 }
 
 th,
 td {
-    /* outline: 1px solid gainsboro; */
-    /* width: 100%; */
     padding: 0.5rem 1rem;
-    /* height: 1rem; */
-    /* white-space: nowrap;
+    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; */
+    text-overflow: ellipsis;
     border-right: 1px solid gainsboro;
-    /* text-align: left; */
 }
 
 tr>td:last-child,
 tr>th:last-child {
+    width: 30%;
     border-right: none;
+    background-color: seashell;
 }
 
 

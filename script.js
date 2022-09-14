@@ -14,10 +14,6 @@ const deleteCookie = (name, path) => {
     setCookie(name, '', -1, path);
 }
 
-// function getAccessTokenFromUrl() {
-//     return utils.parseQueryString(window.location.hash).access_token;
-// }
-
 function isAuthenticated() {
 
     let access_token = utils.parseQueryString(window.location.hash).access_token;
@@ -59,8 +55,6 @@ function renderItems(items) {
     newFileButton.addEventListener("click", function () {
         let epoch = new Date().valueOf();
         let filename = prompt('Filename (default is epoch)', epoch);
-        // let filename = encodeURI(filenamePrompt);
-        // console.log(filename);
         if(filename) {
             newFile(filename + ".md");
         } else {
@@ -110,7 +104,7 @@ function showPageSection(elementId) {
 }
 
 if (isAuthenticated()) {
-    showPageSection('authed-section');
+    // showPageSection('authed-section');
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -146,7 +140,80 @@ if (isAuthenticated()) {
             console.error(error);
         });
 } else {
-    showPageSection('pre-auth-section');
+    // showPageSection('pre-auth-section');
+    window.editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+        mode: "markdown",
+        theme: "uxmap",
+        scrollPastEnd: true,
+        highlightActiveLine: true,
+        lineNumbers: true,
+        lineWrapping: true
+    });
+    window.editor.on('change', function (i, op) {
+        localStorage.setItem("markdown", window.editor.getValue());
+        render();
+    });
+    // if(localStorage.getItem("markdown")) {
+        // window.editor.setValue(localStorage.getItem("markdown"));
+    // } else {
+        window.editor.setValue(`# Welcome to Sundown
+Sundown is a markdown editor that supports inline calculations. Sundown is not a service, it doesn't have a server. It's just a local app. Here's [the source code](https://github.com/lobau/sundown).
+
+## Dropbox sync
+You can sync your notes using your Dropbox if you want. It will create the folder **Dropbox / Apps / Sundown** and store each note as a _.md_ file.
+
+> 🔒 The permissions are as limited as possible. Sundown can **only** access the **Dropbox / Apps / Sundown** folder (Dropbox, please improve your OAuth screen 🙏). You can even [register your own Dropbox app](https://developers.dropbox.com/) and change the app ID if you want nothing to do with me 😁
+
+## Inline calculations
+Just assign variables and do calculations without breaking the flow of the text.
+Let's say you have { pizza = 3 } pizza and { guests = 8 } guests, then each guest will have **{ pizza / guests } pizza**. 
+
+## Calculation sheets
+Sometimes, you need a table to show your calculations in more details:
+{{
+pizza = 8
+guests = 17
+unit_price = 12
+per_guest = pizza / guests
+price_per_guest = unit_price * per_guest
+}}
+
+> ‼️ Note that the variables are always global to the document.
+
+
+## Some random things it can do
+{{
+log(23) 
+23 % of 1023 
+200 sec + 120 % 
+30 minutes + 34 day in sec 
+cos(PI) 
+speed = 27 kph 
+speed in mps  
+456 as hex
+}}`);
+    // }
+    render();
+
+    var filesContainer = document.getElementById('filelist');
+
+    var welcomeDiv = document.createElement('div');
+    welcomeDiv.style.cssText = `
+        // background: moccasin;
+        padding: 2rem;
+        // height: 100%;
+    `;
+    welcomeDiv.innerHTML = `<h1 style="margin-bottom: 1rem;"><span>🌆</span> Sundown</h1>
+    <p>Markdown meet inline calculations.</p>
+    `;
+    filesContainer.appendChild(welcomeDiv);
+
+    var dropboxButton = document.createElement('button');
+    dropboxButton.id = "authlink";
+    dropboxButton.innerHTML = "<span>🌏</span><span>Sign in with Dropbox</span>";
+    filesContainer.appendChild(dropboxButton);
+
+    
 
     // Set the login anchors href using dbx.getAuthenticationUrl()
     var dbx = new Dropbox.Dropbox({ clientId: CLIENT_ID });

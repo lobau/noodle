@@ -59,11 +59,11 @@
 }
 
 .cm-s-uxmap span.cm-header {
-  color: SlateBlue;
+  color: rebeccapurple;
 }
 
 .cm-s-uxmap span.cm-qualifier {
-  color: #555;
+  color: dimgray;
 }
 
 .cm-s-uxmap span.cm-error {
@@ -80,7 +80,7 @@
 
 .cm-s-uxmap span.cm-link {
   color: #000;
-  background-color: moccasin;
+  background-color: seashell;
   text-decoration: none;
 }
 
@@ -101,7 +101,7 @@
   /* inset: 0px; */
   height: 100vh;
   border-right: 1px solid gainsboro;
-  /* padding: 0rem 2rem 2rem 0; */
+  padding: 0rem 1.5rem 0 0;
   line-height: 32px;
   font-size: 1rem;
   /* box-shadow: inset -1px 0 0 Gainsboro; */

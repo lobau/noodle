@@ -95,7 +95,8 @@ const render = () => {
     for(var i = 0; i < Lines.length; i++) {
       if(Lines[i].trim() != '') {
         try {
-          Output.push("<tr><td>" + Lines[i].trim() + "</td><td>" + fcalEngine.evaluate(Lines[i].toString()).toFormat() + "</td></tr>");
+          let result = fcalEngine.evaluate(Lines[i].toString()).toFormat();
+          Output.push("<tr><td>" + Lines[i].trim() + "</td><td>" + result + "</td></tr>");
         }
         catch(err) {
           Output.push("Error parsing")

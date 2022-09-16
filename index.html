@@ -10,7 +10,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.63.1/lib/codemirror.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.3/mode/markdown/markdown.min.js"></script>
-  
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.63.1/lib/codemirror.min.css" />
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌆</text></svg>">
@@ -24,23 +24,16 @@
 </head>
 
 <body>
-    <div class="container main">
-        <!--<div id="pre-auth-section" style="display:none;">
-            <section>
-                <h1>🌆 Sundown</h1>
-                <button id="authlink">Sign in with Dropbox</button>
-            </section>
-        </div>-->
-
-        <!--<div id="authed-section" style="display:none;"><!-->
-            <main>
-                <nav id="filelist"></nav>
-                <textarea id="editor" style="visibility: hidden; display: none;"></textarea>
-                <div id="render"></div>
-            </main>
-            <!--<button id="save" class="default" onclick="saveFile()">💾</button>-->
-        <!--</div>-->
-    </div>
+    <header>
+        <div>🌆 Sundown</div>
+        <div id="status">Editor</div>
+        <div>Preview</div>
+    </header>
+    <main>
+        <nav id="filelist"></nav>
+        <textarea id="editor" style="visibility: hidden; display: none;"></textarea>
+        <div id="render"></div>
+    </main>
     <script type="text/javascript" src="script.js"></script>
 </body>
 

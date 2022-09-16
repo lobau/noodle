@@ -55,15 +55,15 @@ function renderItems(items) {
     newFileButton.addEventListener("click", function () {
         let epoch = new Date().valueOf();
         let filename = prompt('Filename (default is epoch)', epoch);
-        if(filename) {
+        if (filename) {
             newFile(filename + ".md");
         } else {
             newFile(epoch + ".md");
         }
-        
+
     });
     filesContainer.appendChild(newFileButton);
-    filesContainer.appendChild(document.createElement('hr'));
+    // filesContainer.appendChild(document.createElement('hr'));
 
     let possible_icons = ["📒", "📓", "📔", "📕", "📗", "📘", "📙"];
     window.buttons = [];
@@ -86,11 +86,6 @@ function renderItems(items) {
                 window.history.pushState({ "access_token": access_token }, 'Sundown', '/?' + searchParams.toString());
 
                 button.classList.add("loading");
-
-                // Update the URL parameters
-                // const searchParams = new URLSearchParams(location.search);
-                // searchParams.set('selectedFile', item.name);
-                // location.search = searchParams.toString();
             });
             filesContainer.appendChild(button);
             window.buttons.push(button);
@@ -104,8 +99,6 @@ function showPageSection(elementId) {
 }
 
 if (isAuthenticated()) {
-    // showPageSection('authed-section');
-
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const selectedFile = urlParams.get('selectedFile');
@@ -119,16 +112,11 @@ if (isAuthenticated()) {
         lineWrapping: true
     });
     window.editor.on('change', function (i, op) {
-        localStorage.setItem("markdown", window.editor.getValue());
         render();
     });
 
     if (selectedFile) {
         loadFile(selectedFile);
-
-    } else {
-        // load the first item?
-        // onboarding?
     }
 
     var dbx = new Dropbox.Dropbox({ accessToken: window.access_token });
@@ -140,7 +128,6 @@ if (isAuthenticated()) {
             console.error(error);
         });
 } else {
-    // showPageSection('pre-auth-section');
     window.editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
         mode: "markdown",
         theme: "uxmap",
@@ -153,16 +140,8 @@ if (isAuthenticated()) {
         localStorage.setItem("markdown", window.editor.getValue());
         render();
     });
-    // if(localStorage.getItem("markdown")) {
-        // window.editor.setValue(localStorage.getItem("markdown"));
-    // } else {
-        window.editor.setValue(`# Welcome to Sundown
+    window.editor.setValue(`# Welcome to Sundown
 Sundown is a markdown editor that supports inline calculations. Sundown is not a service, it doesn't have a server. It's just a local app. Here's [the source code](https://github.com/lobau/sundown).
-
-## Dropbox sync
-You can sync your notes using your Dropbox if you want. It will create the folder **Dropbox / Apps / Sundown** and store each note as a _.md_ file.
-
-> 🔒 The permissions are as limited as possible. Sundown can **only** access the **Dropbox / Apps / Sundown** folder (Dropbox, please improve your OAuth screen 🙏). You can even [register your own Dropbox app](https://developers.dropbox.com/) and change the app ID if you want nothing to do with me 😁
 
 ## Inline calculations
 Just assign variables and do calculations without breaking the flow of the text.
@@ -191,17 +170,22 @@ cos(PI)
 speed = 27 kph 
 speed in mps  
 456 as hex
-}}`);
-    // }
+}}
+
+
+## Dropbox sync
+You can sync your notes using your Dropbox if you want. It will create the folder **Dropbox / Apps / Sundown** and store each note as a _.md_ file.
+
+> 🔒 The permissions are as limited as possible. Sundown can **only** access the **Dropbox / Apps / Sundown** folder (Dropbox, please improve your OAuth screen 🙏). You can even [register your own Dropbox app](https://developers.dropbox.com/) and change the app ID if you want nothing to do with me 😁
+
+`);
     render();
 
     var filesContainer = document.getElementById('filelist');
 
     var welcomeDiv = document.createElement('div');
     welcomeDiv.style.cssText = `
-        // background: moccasin;
         padding: 2rem;
-        // height: 100%;
     `;
     welcomeDiv.innerHTML = `<h1 style="margin-bottom: 1rem;"><span>🌆</span> Sundown</h1>
     <p>Markdown meet inline calculations.</p>
@@ -213,14 +197,10 @@ speed in mps
     dropboxButton.innerHTML = "<span>🌏</span><span>Sign in with Dropbox</span>";
     filesContainer.appendChild(dropboxButton);
 
-    
-
-    // Set the login anchors href using dbx.getAuthenticationUrl()
     var dbx = new Dropbox.Dropbox({ clientId: CLIENT_ID });
     let protocol;
     protocol = (window.location.hostname == "localhost") ? "http" : "https";
     currentHost = protocol + "://" + window.location.host;
-    // console.log(currentHost);
     var authUrl = dbx.auth.getAuthenticationUrl(currentHost)
         .then((authUrl) => {
             document.getElementById('authlink').addEventListener('click', () => {
@@ -228,3 +208,15 @@ speed in mps
             });
         })
 }
+
+document.addEventListener('keyup', function (event) {
+    if (event.ctrlKey && event.key === 's') {
+        preventDefault();
+        saveFile();
+    }
+
+    if (window.saveTimer) {
+        clearTimeout(window.saveTimer);
+    }
+    window.saveTimer = setTimeout(saveFile, 3000);
+});

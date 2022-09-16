@@ -18,44 +18,31 @@
 
 body {
     font-size: 16px;
-    /* -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none; */
-    font-family: system-ui;
+    font-family: system-ui, sans-serif;
 }
 
 nav {
-    /* flex: 1; */
-    /* max-width: 16em; */
     color: black;
     background: seashell;
-    
     box-shadow: inset -1px 0 0 Gainsboro;
-    /* outline: 1px dashed lavender; */
-    /* outline-offset: -1px; */
-
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    /* gap: 1rem; */
-    /* padding: 1rem; */
-
 }
 
 button {
     display: grid;
-    grid-template-columns: 1rem 1fr;
+    grid-template-columns: 20px 1fr;
     gap: 0.5rem;
     text-align: left;
     width: 100%;
-    font: 400 1rem/1rem sans;
-    padding: 1rem;
+    font: 400 1rem/2rem sans;
+    padding: 0.5rem 1rem;
     cursor: pointer;
     background-color: white;
     transition: border-left 0.2s ease;
-    box-shadow: inset -1px 0 0 Gainsboro;
+    box-shadow: inset -1px 0 0 Gainsboro, inset 0 -1px 0 Gainsboro;
     border-left: 0 solid lavender;
 }
 
@@ -63,7 +50,7 @@ button:hover {
     border-left: 0.5rem solid rebeccapurple;
 }
 
-button > * {
+button>* {
     width: 100%;
     white-space: nowrap;
     overflow: hidden;
@@ -75,10 +62,6 @@ hr {
     height: 1px;
     background-color: gainsboro;
 }
-
-/* button:hover {
-    background-color: antiquewhite;
-} */
 
 .loading {
     color: rebeccapurple;
@@ -92,33 +75,35 @@ hr {
     font-weight: 700;
 }
 
-main {
-    /* position: absolute; */
-    /* inset: 0px; */
+header {
     display: grid;
     width: 100vw;
-    height: 100vh;
+    height: 3rem;
     overflow-x: hidden;
     overflow-y: hidden;
     grid-template-columns: 14rem calc(50% - 7rem) calc(50% - 7rem);
-    /* max-width: 100%; */
-    /* height: 100%; */
+    box-shadow: inset 0 -1px 0 Gainsboro;
+}
+
+header > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main {
+    display: grid;
+    width: 100vw;
+    height: calc(100vh - 3rem);
+    overflow-x: hidden;
+    overflow-y: hidden;
+    grid-template-columns: 14rem calc(50% - 7rem) calc(50% - 7rem);
 }
 
 #editor {
-    /* flex: 1; */
-    /* height: 100%; */
-    /* width: 100%; */
-    /* height: 100vh; */
-    /* height: 100%; */
-    position: relative;
-   height: 100vh;
-}
-
-/* .pane>* {
     position: relative;
     height: 100vh;
-} */
+}
 
 #save {
     position: fixed;

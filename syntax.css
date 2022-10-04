@@ -10,7 +10,7 @@
 
 /* LINK URL */
 .cm-s-uxmap span.cm-string {
-  color: var(--accent-active);
+  color: var(--accent-hover);
 }
 
 /* HEADER */
@@ -54,8 +54,16 @@
 }
 
 .CodeMirror-linenumber {
-  padding:  0 1rem 0 0;
+  padding: 0 1rem 0 0;
   color: var(--border);
   font-size: 0.8rem;
   background-color: clear;
+}
+
+.CodeMirror div.CodeMirror-cursor {
+  border-left: 2px solid var(--ink);
+}
+
+.CodeMirror-selected {
+  background-color: var(--selection) !important;
 }

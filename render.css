@@ -35,17 +35,18 @@ a:visited {
     position: relative;
     padding: 2px;
     color: var(--accent);
-    text-decoration-color: var(--accent-light);
+    text-decoration-color: var(--border);
     font-weight: 700;
 }
 
 a:hover {
     /* color: mediumpurple; */
-    text-decoration-color: var(--accent-hover);
+    text-decoration-color: var(--accent);
 }
 
 a:active {
-    text-decoration-color: var(--accent-active);
+    color: var(--ink);
+    text-decoration-color: var(--ink);
 }
 
 

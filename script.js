@@ -47,22 +47,6 @@ function stringToSeed(str) {
 }
 
 function renderItems(items) {
-    // var filesContainer = document.getElementById('filelist');
-
-    // var newFileButton = document.createElement('button');
-    // newFileButton.innerHTML = "<span>✨</span><span>Create New Sheet</span>";
-    // newFileButton.addEventListener("click", function () {
-    //     let epoch = new Date().valueOf();
-    //     let filename = prompt('Filename (default is epoch)', epoch);
-    //     if (filename) {
-    //         newFile(filename + ".md");
-    //     } else {
-    //         newFile(epoch + ".md");
-    //     }
-
-    // });
-    // filesContainer.appendChild(newFileButton);
-    // filesContainer.appendChild(document.createElement('hr'));
     document.getElementById('newFile').addEventListener("click", function () {
         let epoch = new Date().valueOf();
         let filename = prompt('Filename (default is epoch)', epoch);
@@ -86,25 +70,7 @@ function renderItems(items) {
     items.forEach(function (item, index) {
         // is that a markdown file?
         if (item.name.split(".").reverse()[0] == "md") {
-            // var button = document.createElement('button');
             var seed = stringToSeed(item.name) % possible_icons.length;
-            // button.innerHTML = "<span>" + possible_icons[seed] + "</span><span>" + item.name + "</span>";
-            // button.dataset.filename = item.name;
-            // if (selectedFile == item.name) {
-            //     button.classList.add("selected");
-            // }
-            // button.addEventListener("click", function () {
-            //     loadFile(item.name);
-
-            //     const searchParams = new URLSearchParams(location.search);
-            //     searchParams.set('selectedFile', item.name);
-            //     window.history.pushState({ "access_token": access_token }, 'Sundown', '/?' + searchParams.toString());
-
-            //     button.classList.add("loading");
-            // });
-            // filesContainer.appendChild(button);
-            // window.buttons.push(button);
-
             var opt = document.createElement('option');
             opt.value = item.name;
             opt.innerHTML = possible_icons[seed] + "&ensp;" + item.name;
@@ -114,7 +80,7 @@ function renderItems(items) {
     });
 
     const selectedFile = new URLSearchParams(window.location.search).get('selectedFile');
-    if(!selectedFile) {
+    if (!selectedFile) {
         let defaultFile = items[0].name;
         loadFile(defaultFile);
 
@@ -222,17 +188,6 @@ You can sync your notes using your Dropbox if you want. It will create the folde
 
 `);
     render();
-
-    // var filesContainer = document.getElementById('filelist');
-
-    // var welcomeDiv = document.createElement('div');
-    // welcomeDiv.style.cssText = `
-    //     padding: 2rem;
-    // `;
-    // welcomeDiv.innerHTML = `<h1 style="margin-bottom: 1rem;"><span>🌆</span> Sundown</h1>
-    // <p>Markdown meet inline calculations.</p>
-    // `;
-    // filesContainer.appendChild(welcomeDiv);
 
     var dropboxButton = document.createElement('button');
     dropboxButton.id = "authlink";

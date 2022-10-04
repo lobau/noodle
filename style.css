@@ -10,6 +10,7 @@
     --accent-active: darkorchid;
 
     --surface-light: seashell;
+    --selection: papayaWhip;
 
     --border: Gainsboro;
 }
@@ -23,12 +24,13 @@
         --ink: #ccc;
         --ink-light: #999;
 
-        --accent-light: lavender;
-        --accent: fuchsia;
-        --accent-hover: mediumpurple;
-        --accent-active: darkorchid;
+        --accent-light: peachPuff;
+        --accent: sandyBrown;
+        --accent-hover: chocolate;
+        --accent-active: sienna;
 
-        --surface-light: #1f1f1f;
+        --surface-light: #323232;
+        --selection: darkSlateBlue;
 
         --border: rgba(255, 255, 255, 0.1);
     }
@@ -40,6 +42,16 @@
     padding: 0;
     border: none;
     border-collapse: collapse;
+}
+
+::-moz-selection {
+    color: var(--ink-bold);
+    background: var(--selection);
+}
+
+::selection {
+    color: var(--ink-bold);
+    background: var(--selection);
 }
 
 body {
@@ -64,7 +76,6 @@ select {
 }
 
 select:hover {
-    /* background-color: var(--accent-hover); */
     border-left: 0.5rem solid var(--accent);
 }
 

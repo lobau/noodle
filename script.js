@@ -47,12 +47,23 @@ function stringToSeed(str) {
 }
 
 function renderItems(items) {
-    var filesContainer = document.getElementById('filelist');
-    const selectedFile = new URLSearchParams(window.location.search).get('selectedFile');
+    // var filesContainer = document.getElementById('filelist');
 
-    var newFileButton = document.createElement('button');
-    newFileButton.innerHTML = "<span>✨</span><span>Create New Sheet</span>";
-    newFileButton.addEventListener("click", function () {
+    // var newFileButton = document.createElement('button');
+    // newFileButton.innerHTML = "<span>✨</span><span>Create New Sheet</span>";
+    // newFileButton.addEventListener("click", function () {
+    //     let epoch = new Date().valueOf();
+    //     let filename = prompt('Filename (default is epoch)', epoch);
+    //     if (filename) {
+    //         newFile(filename + ".md");
+    //     } else {
+    //         newFile(epoch + ".md");
+    //     }
+
+    // });
+    // filesContainer.appendChild(newFileButton);
+    // filesContainer.appendChild(document.createElement('hr'));
+    document.getElementById('newFile').addEventListener("click", function () {
         let epoch = new Date().valueOf();
         let filename = prompt('Filename (default is epoch)', epoch);
         if (filename) {
@@ -62,36 +73,67 @@ function renderItems(items) {
         }
 
     });
-    filesContainer.appendChild(newFileButton);
-    // filesContainer.appendChild(document.createElement('hr'));
+
+    document.getElementById('status').addEventListener("click", saveFile);
 
     let possible_icons = ["📒", "📓", "📔", "📕", "📗", "📘", "📙"];
     window.buttons = [];
 
+    var optgroup = document.createElement('optgroup');
+    optgroup.label = "Uncategorized";
+    document.getElementById("filepicker").appendChild(optgroup);
+
     items.forEach(function (item, index) {
         // is that a markdown file?
         if (item.name.split(".").reverse()[0] == "md") {
-            var button = document.createElement('button');
+            // var button = document.createElement('button');
             var seed = stringToSeed(item.name) % possible_icons.length;
-            button.innerHTML = "<span>" + possible_icons[seed] + "</span><span>" + item.name + "</span>";
-            button.dataset.filename = item.name;
-            if (selectedFile == item.name) {
-                button.classList.add("selected");
-            }
-            button.addEventListener("click", function () {
-                loadFile(item.name);
+            // button.innerHTML = "<span>" + possible_icons[seed] + "</span><span>" + item.name + "</span>";
+            // button.dataset.filename = item.name;
+            // if (selectedFile == item.name) {
+            //     button.classList.add("selected");
+            // }
+            // button.addEventListener("click", function () {
+            //     loadFile(item.name);
 
-                const searchParams = new URLSearchParams(location.search);
-                searchParams.set('selectedFile', item.name);
-                window.history.pushState({ "access_token": access_token }, 'Sundown', '/?' + searchParams.toString());
+            //     const searchParams = new URLSearchParams(location.search);
+            //     searchParams.set('selectedFile', item.name);
+            //     window.history.pushState({ "access_token": access_token }, 'Sundown', '/?' + searchParams.toString());
 
-                button.classList.add("loading");
-            });
-            filesContainer.appendChild(button);
-            window.buttons.push(button);
+            //     button.classList.add("loading");
+            // });
+            // filesContainer.appendChild(button);
+            // window.buttons.push(button);
+
+            var opt = document.createElement('option');
+            opt.value = item.name;
+            opt.innerHTML = possible_icons[seed] + "&ensp;" + item.name;
+            optgroup.appendChild(opt);
         }
 
     });
+
+    const selectedFile = new URLSearchParams(window.location.search).get('selectedFile');
+    if(!selectedFile) {
+        let defaultFile = items[0].name;
+        loadFile(defaultFile);
+
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set('selectedFile', defaultFile);
+        window.history.pushState({ "access_token": access_token }, 'Sundown', '/?' + searchParams.toString());
+    } else {
+        document.getElementById("filepicker").value = selectedFile;
+    }
+
+    document.getElementById("filepicker").onchange = function () {
+        let selectedOption = document.getElementById("filepicker").value;
+
+        loadFile(selectedOption);
+
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set('selectedFile', selectedOption);
+        window.history.pushState({ "access_token": access_token }, 'Sundown', '/?' + searchParams.toString());
+    };
 }
 
 function showPageSection(elementId) {
@@ -181,21 +223,21 @@ You can sync your notes using your Dropbox if you want. It will create the folde
 `);
     render();
 
-    var filesContainer = document.getElementById('filelist');
+    // var filesContainer = document.getElementById('filelist');
 
-    var welcomeDiv = document.createElement('div');
-    welcomeDiv.style.cssText = `
-        padding: 2rem;
-    `;
-    welcomeDiv.innerHTML = `<h1 style="margin-bottom: 1rem;"><span>🌆</span> Sundown</h1>
-    <p>Markdown meet inline calculations.</p>
-    `;
-    filesContainer.appendChild(welcomeDiv);
+    // var welcomeDiv = document.createElement('div');
+    // welcomeDiv.style.cssText = `
+    //     padding: 2rem;
+    // `;
+    // welcomeDiv.innerHTML = `<h1 style="margin-bottom: 1rem;"><span>🌆</span> Sundown</h1>
+    // <p>Markdown meet inline calculations.</p>
+    // `;
+    // filesContainer.appendChild(welcomeDiv);
 
     var dropboxButton = document.createElement('button');
     dropboxButton.id = "authlink";
-    dropboxButton.innerHTML = "<span>🌏</span><span>Sign in with Dropbox</span>";
-    filesContainer.appendChild(dropboxButton);
+    dropboxButton.innerHTML = "🌏 Sign in with Dropbox";
+    document.getElementById('toolbar').appendChild(dropboxButton);
 
     var dbx = new Dropbox.Dropbox({ clientId: CLIENT_ID });
     let protocol;

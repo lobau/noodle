@@ -21,7 +21,7 @@ body {
     font-family: system-ui, sans-serif;
 }
 
-nav {
+/* nav {
     color: black;
     background: seashell;
     box-shadow: inset -1px 0 0 Gainsboro;
@@ -29,20 +29,57 @@ nav {
     flex-direction: column;
     justify-content: start;
     align-items: center;
-}
+} */
 
-button {
-    display: grid;
-    grid-template-columns: 20px 1fr;
-    gap: 0.5rem;
+select {
     text-align: left;
     width: 100%;
+    height: 3rem;
     font: 400 1rem/2rem sans;
     padding: 0.5rem 1rem;
     cursor: pointer;
     background-color: white;
-    transition: border-left 0.2s ease;
     box-shadow: inset -1px 0 0 Gainsboro, inset 0 -1px 0 Gainsboro;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M 6 9 L 12 15 L 18 9' fill='none' stroke-width='2' stroke='black'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: calc(100% - 1rem);
+    background-position-y: 12px;
+
+    transition: border-left 0.2s ease;
+    border-left: 0 solid lavender;
+}
+
+select:hover {
+    border-left: 0.5rem solid rebeccapurple;
+}
+
+/* <?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 24 24" width="24px" height="24px" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <polyline style="stroke: rgb(0, 0, 0); paint-order: fill; fill: none; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round;" points="6 9 12 15 18 9" bx:origin="0.5 0.4"/>
+</svg>
+ */
+
+
+
+button {
+    /* display: grid; */
+    /* grid-template-columns: 20px 1fr; */
+    /* gap: 0.5rem; */
+    height: 3rem;
+    text-align: left;
+    width: fit-content;
+    font: 400 1rem/2rem sans;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background-color: white;
+    /* box-shadow: inset -1px 0 0 Gainsboro, inset 0 -1px 0 Gainsboro; */
+    box-shadow: inset 0 1px 0 Gainsboro;
+
+    transition: border-left 0.2s ease;
     border-left: 0 solid lavender;
 }
 
@@ -50,20 +87,21 @@ button:hover {
     border-left: 0.5rem solid rebeccapurple;
 }
 
-button>* {
+button {
     width: 100%;
+    max-width: 8rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-hr {
+/* hr {
     width: 100%;
     height: 1px;
     background-color: gainsboro;
-}
+} */
 
-.loading {
+/* .loading {
     color: rebeccapurple;
     background-color: lavender;
     font-weight: 700;
@@ -73,39 +111,39 @@ hr {
     color: white;
     background-color: rebeccapurple;
     font-weight: 700;
-}
+} */
 
-header {
-    display: grid;
+nav {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: flex;
     width: 100vw;
     height: 3rem;
     overflow-x: hidden;
     overflow-y: hidden;
-    grid-template-columns: 14rem calc(50% - 7rem) calc(50% - 7rem);
-    box-shadow: inset 0 -1px 0 Gainsboro;
-}
-
-header > div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    /* grid-template-columns: 8rem 1fr 7rem; */
+    box-shadow: inset 0 1px 0 Gainsboro;
 }
 
 main {
+    position: absolute;
+    inset: 0;
     display: grid;
     width: 100vw;
     height: calc(100vh - 3rem);
     overflow-x: hidden;
     overflow-y: hidden;
-    grid-template-columns: 14rem calc(50% - 7rem) calc(50% - 7rem);
+    /* grid-template-columns: 14rem calc(50% - 7rem) calc(50% - 7rem); */
+    grid-template-columns: 1fr 1fr;
 }
 
 #editor {
     position: relative;
-    height: 100vh;
+    height: 50vh;
 }
 
-#save {
+/* #save {
     position: fixed;
     font-size: 1.5rem;
     right: 2rem;
@@ -118,9 +156,9 @@ main {
     border-radius: 50%;
     transition: all 0.4s ease;
     box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.85), var(--shadow-modal);
-}
+} */
 
-.default {
+/* .default {
     background-color: white;
 }
 
@@ -137,4 +175,4 @@ main {
 .saved {
     transform: scale(1.1);
     background-color: PaleGreen;
-}
+} */

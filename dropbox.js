@@ -21,7 +21,7 @@ function loadFile(filePath) {
     dbx.filesDownload({ path: '/' + filePath }).then(function (response) {
         var blob = response.result.fileBlob;
         var reader = new FileReader();
-        console.log(filePath);
+        // console.log(filePath);
         highlightSelected();
         reader.addEventListener("loadend", function () {
             window.editor.setValue(reader.result);
@@ -64,23 +64,23 @@ function saveFile() {
             accessToken: window.access_token
         });
         let file = new File([textContent], selectedFile, { type: "text/plain" });
-        document.getElementById('status').innerHTML = "💾 Saving";
+        document.getElementById('status').innerHTML = "💾&ensp;Saving";
 
         if (file.size < UPLOAD_FILE_SIZE_LIMIT) {
             dbx
                 .filesUpload({ path: "/" + file.name, contents: file, mode: 'overwrite', mute: true })
                 .then(function (response) {
-                    document.getElementById('status').innerHTML = "✅ Saved";
+                    document.getElementById('status').innerHTML = "✅&ensp;Saved";
                     setTimeout(function () {
-                        document.getElementById('status').innerHTML = "Editor";
+                        document.getElementById('status').innerHTML = "🌏&ensp;Save";
                     }, 2000);
                 })
                 .catch(function (error) {
-                    document.getElementById('save').className = "error";
-                    document.getElementById('status').innerHTML = "❌ Error";
+                    // document.getElementById('save').className = "error";
+                    document.getElementById('status').innerHTML = "❌&ensp;Error";
                     setTimeout(function () {
-                        document.getElementById('save').className = "default";
-                        document.getElementById('status').innerHTML = "Editor";
+                        // document.getElementById('save').className = "default";
+                        document.getElementById('status').innerHTML = "🌏&ensp;Save";
                     }, 3000);
                     console.error(error);
                 });

@@ -93,7 +93,7 @@
 }
 
 .cm-s-uxmap {
-  height: 100vh;
+  height: 100%;
   border-right: 1px solid gainsboro;
   padding: 0rem 1.5rem 0 0;
   line-height: 32px;

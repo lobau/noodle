@@ -24,13 +24,13 @@
 </head>
 
 <body>
-    <header>
-        <div>🌆 Sundown</div>
-        <div id="status">Editor</div>
-        <div>Preview</div>
-    </header>
+    <nav id="toolbar">
+        <button id="newFile">✨&ensp;New file</button>
+        <select name="filepicker" id="filepicker"></select>
+        <button id="status">🌏&ensp;Save</button>
+    </nav>
     <main>
-        <nav id="filelist"></nav>
+        <!-- <nav id="filelist"></nav> -->
         <textarea id="editor" style="visibility: hidden; display: none;"></textarea>
         <div id="render"></div>
     </main>

@@ -6,8 +6,8 @@
     font-size: 1rem;
     line-height: 32px;
     padding: 2rem 4rem;
-    color: black;
-    background-color: white;
+    color: var(--ink);
+    background-color: var(--paper);
     overflow: auto;
 }
 
@@ -34,18 +34,18 @@ a:visited {
     display: inline;
     position: relative;
     padding: 2px;
-    color: rebeccapurple;
-    text-decoration-color: lightgray;
+    color: var(--accent);
+    text-decoration-color: var(--accent-light);
     font-weight: 700;
 }
 
 a:hover {
     /* color: mediumpurple; */
-    text-decoration-color: mediumpurple;
+    text-decoration-color: var(--accent-hover);
 }
 
 a:active {
-    text-decoration-color: darkorchid;
+    text-decoration-color: var(--accent-active);
 }
 
 
@@ -55,7 +55,7 @@ a:active {
 #render>h4,
 #render>h5,
 #render>h6 {
-    color: rebeccapurple;
+    color: var(--accent);
     margin: 0 0 1rem 0;
     display: block;
     font-weight: 700;
@@ -66,22 +66,21 @@ a:active {
     width: 100%;
     height: auto;
     border-radius: 1rem;
-    box-shadow: var(--shadow-modal);
 }
 
 #render>blockquote {
     padding: 0;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
-    background: seashell;
-    border: 1px solid gainsboro;
+    background: var(--surface-light);
+    border: 1px solid var(--border);
     display: block;
 }
 
 table {
+    display: block;
     border-radius: 0.5rem;
-    background: white;
-    border: 1px solid gainsboro;
+    border: 1px solid var(--border);
     width: 100%;
 }
 
@@ -90,7 +89,7 @@ tr {
     table-layout: fixed;
     width: 100%;
     white-space: nowrap;
-    border-bottom: 1px solid gainsboro;
+    border-bottom: 1px solid var(--border);
 }
 
 th,
@@ -99,17 +98,34 @@ td {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    border-right: 1px solid gainsboro;
+    /* border: 1px solid red; */
+    /* border-right: 1px solid var(--border); */
 }
 
 tr>td:last-child,
 tr>th:last-child {
     width: 30%;
-    border-right: none;
-    background-color: seashell;
+    /* border-right: none; */
+    background-color: var(--surface-light);
 }
 
 
 tbody>tr:last-child {
     border-bottom: none;
+}
+
+th:first-of-type {
+    border-top-left-radius: 10px;
+}
+
+th:last-of-type {
+    border-top-right-radius: 10px;
+}
+
+tr:last-of-type td:first-of-type {
+    border-bottom-left-radius: 10px;
+}
+
+tr:last-of-type td:last-of-type {
+    border-bottom-right-radius: 10px;
 }

@@ -1,35 +1,51 @@
 :root {
-    --shadow-modal:
-        0px 14px 40px rgba(0, 0, 0, 0.023),
-        0px 7px 20px rgba(0, 0, 0, 0.026),
-        0px 2px 3px rgba(0, 0, 0, 0.04);
+    --paper: white;
+    --ink-bold: black;
+    --ink: #222;
+    --ink-light: lightgray;
 
-    --shadow-border: inset 0px 0px 1px rgba(0, 0, 0, 0.35);
+    --accent-light: lavender;
+    --accent: rebeccapurple;
+    --accent-hover: mediumpurple;
+    --accent-active: darkorchid;
 
+    --surface-light: seashell;
+
+    --border: Gainsboro;
 }
+
+
+@media (prefers-color-scheme:dark) {
+    :root {
+        --paper: #242424;
+
+        --ink-bold: #fff;
+        --ink: #ccc;
+        --ink-light: #999;
+
+        --accent-light: lavender;
+        --accent: fuchsia;
+        --accent-hover: mediumpurple;
+        --accent-active: darkorchid;
+
+        --surface-light: #1f1f1f;
+
+        --border: rgba(255, 255, 255, 0.1);
+    }
+}
+
 
 * {
     margin: 0;
     padding: 0;
     border: none;
     border-collapse: collapse;
-    /* outline: 1px solid rgba(255, 0, 0, 0.1); */
 }
 
 body {
     font-size: 16px;
     font-family: system-ui, sans-serif;
 }
-
-/* nav {
-    color: black;
-    background: seashell;
-    box-shadow: inset -1px 0 0 Gainsboro;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-} */
 
 select {
     text-align: left;
@@ -38,53 +54,38 @@ select {
     font: 400 1rem/2rem sans;
     padding: 0.5rem 1rem;
     cursor: pointer;
-    background-color: white;
-    box-shadow: inset -1px 0 0 Gainsboro, inset 0 -1px 0 Gainsboro;
 
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background: transparent;
-    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M 6 9 L 12 15 L 18 9' fill='none' stroke-width='2' stroke='black'/></svg>");
-    background-repeat: no-repeat;
-    background-position-x: calc(100% - 1rem);
-    background-position-y: 12px;
+    color: var(--ink);
+    background-color: var(--paper);
+    box-shadow: inset 0 1px 0 var(--border);
 
     transition: border-left 0.2s ease;
-    border-left: 0 solid lavender;
+    border-left: 0 solid var(--accent-light);
 }
 
 select:hover {
-    border-left: 0.5rem solid rebeccapurple;
+    /* background-color: var(--accent-hover); */
+    border-left: 0.5rem solid var(--accent);
 }
 
-/* <?xml version="1.0" encoding="utf-8"?>
-<svg viewBox="0 0 24 24" width="24px" height="24px" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
-  <polyline style="stroke: rgb(0, 0, 0); paint-order: fill; fill: none; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round;" points="6 9 12 15 18 9" bx:origin="0.5 0.4"/>
-</svg>
- */
-
-
-
 button {
-    /* display: grid; */
-    /* grid-template-columns: 20px 1fr; */
-    /* gap: 0.5rem; */
     height: 3rem;
     text-align: left;
     width: fit-content;
     font: 400 1rem/2rem sans;
     padding: 0.5rem 1rem;
     cursor: pointer;
-    background-color: white;
-    /* box-shadow: inset -1px 0 0 Gainsboro, inset 0 -1px 0 Gainsboro; */
-    box-shadow: inset 0 1px 0 Gainsboro;
+
+    color: var(--ink);
+    background-color: var(--paper);
+    box-shadow: inset 0 1px 0 var(--border);
 
     transition: border-left 0.2s ease;
-    border-left: 0 solid lavender;
+    border-left: 0 solid var(--accent-light);
 }
 
 button:hover {
-    border-left: 0.5rem solid rebeccapurple;
+    border-left: 0.5rem solid var(--accent);
 }
 
 button {
@@ -95,24 +96,6 @@ button {
     text-overflow: ellipsis;
 }
 
-/* hr {
-    width: 100%;
-    height: 1px;
-    background-color: gainsboro;
-} */
-
-/* .loading {
-    color: rebeccapurple;
-    background-color: lavender;
-    font-weight: 700;
-}
-
-.selected {
-    color: white;
-    background-color: rebeccapurple;
-    font-weight: 700;
-} */
-
 nav {
     position: absolute;
     left: 0;
@@ -122,8 +105,7 @@ nav {
     height: 3rem;
     overflow-x: hidden;
     overflow-y: hidden;
-    /* grid-template-columns: 8rem 1fr 7rem; */
-    box-shadow: inset 0 1px 0 Gainsboro;
+    box-shadow: inset 0 1px 0 var(--border);
 }
 
 main {
@@ -134,7 +116,6 @@ main {
     height: calc(100vh - 3rem);
     overflow-x: hidden;
     overflow-y: hidden;
-    /* grid-template-columns: 14rem calc(50% - 7rem) calc(50% - 7rem); */
     grid-template-columns: 1fr 1fr;
 }
 
@@ -142,37 +123,3 @@ main {
     position: relative;
     height: 50vh;
 }
-
-/* #save {
-    position: fixed;
-    font-size: 1.5rem;
-    right: 2rem;
-    bottom: 2rem;
-    width: 4rem;
-    height: 4rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    transition: all 0.4s ease;
-    box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.85), var(--shadow-modal);
-} */
-
-/* .default {
-    background-color: white;
-}
-
-.saving {
-    transform: scale(1.1);
-    background-color: Coral;
-}
-
-.error {
-    transform: scale(1.25);
-    background-color: HotPink;
-}
-
-.saved {
-    transform: scale(1.1);
-    background-color: PaleGreen;
-} */

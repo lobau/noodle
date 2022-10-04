@@ -1,120 +1,41 @@
-.cm-s-uxmap span.cm-meta {
-  color: olive;
-}
-
-.cm-s-uxmap span.cm-number {
-  color: #00f;
-}
-
-.cm-s-uxmap span.cm-keyword {
-  line-height: 1em;
-  font-weight: 700;
-  color: navy;
-}
-
-.cm-s-uxmap span.cm-atom {
-  font-weight: 700;
-  color: navy;
-}
-
-.cm-s-uxmap span.cm-def {
-  color: gray;
-}
-
-.cm-s-uxmap span.cm-variable {
-  color: gray;
-}
-
+/* LIST ITEMS */
 .cm-s-uxmap span.cm-variable-2 {
-  color: gray;
+  color: var(--ink-light);
 }
 
-.cm-s-uxmap span.cm-type,
-.cm-s-uxmap span.cm-variable-3 {
-  color: gray;
-}
-
-.cm-s-uxmap span.cm-property {
-  color: gray;
-}
-
-.cm-s-uxmap span.cm-operator {
-  color: gray;
-}
-
+/* CODE BLOCKS */
 .cm-s-uxmap span.cm-comment {
-  color: grey;
+  color: var(--ink-light);
 }
 
+/* LINK URL */
 .cm-s-uxmap span.cm-string {
-  color: sienna;
+  color: var(--accent-active);
 }
 
-.cm-s-uxmap span.cm-string-2 {
-  color: sienna;
-}
-
+/* HEADER */
 .cm-s-uxmap span.cm-header {
-  color: rebeccapurple;
+  color: var(--accent);
 }
 
-.cm-s-uxmap span.cm-qualifier {
-  color: dimgray;
-}
-
-.cm-s-uxmap span.cm-error {
-  color: red;
-}
-
-.cm-s-uxmap span.cm-attribute {
-  color: #00f;
-}
-
-.cm-s-uxmap span.cm-tag {
-  color: navy;
-}
-
+/* LINK LABELS and CHECKBOXES */
 .cm-s-uxmap span.cm-link {
-  color: #000;
-  background-color: seashell;
+  color: var(--ink-bold);
   text-decoration: none;
-}
-
-.cm-s-uxmap .CodeMirror-activeline-background {
-  background: #fffae3;
-}
-
-.cm-s-uxmap span.cm-builtin {
-  color: #30a;
-}
-
-.cm-s-uxmap span.cm-bracket {
-  color: #cc7;
 }
 
 .cm-s-uxmap {
   height: 100%;
-  border-right: 1px solid gainsboro;
+  border-right: 1px dashed var(--border);
   padding: 0rem 1.5rem 0 0;
   line-height: 32px;
   font-size: 1rem;
   font-family: monospace;
 }
 
-.cm-s-uxmap .CodeMirror-matchingbracket {
-  outline: 1px solid grey;
-  color: #444 !important;
-}
-
-.CodeMirror-hints.uxmap {
-  font-family: monospace;
-  color: #616569;
-  background-color: #ebf3fd !important;
-}
-
-.CodeMirror-hints.uxmap .CodeMirror-hint-active {
-  background-color: #a2b8c9 !important;
-  color: #5c6065 !important;
+.CodeMirror {
+  background-color: var(--paper);
+  color: var(--ink);
 }
 
 .CodeMirror-code {
@@ -122,9 +43,9 @@
   background-position: 0 -32px;
   background-repeat: repeat-y;
   background-image: linear-gradient(to bottom,
-      white,
-      white 31px,
-      Gainsboro);
+      var(--paper),
+      var(--paper) 31px,
+      var(--border));
 }
 
 .CodeMirror-gutters {
@@ -134,7 +55,7 @@
 
 .CodeMirror-linenumber {
   padding:  0 1rem 0 0;
-  color: lightgray;
+  color: var(--border);
   font-size: 0.8rem;
   background-color: clear;
 }

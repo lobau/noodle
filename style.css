@@ -1,5 +1,6 @@
 :root {
     --font: system-ui, sans-serif;
+    --rem: 15px;
 
     --paper: white;
     --paper-row: #fafafa;
@@ -66,17 +67,18 @@
     background: var(--selection);
 }
 
-body {
-    font-size: 16px;
+html, body {
+    font-size: var(--rem);
     font-family: var(--font);
+    width: 100vw;
+    height: 100vh;
+}
 
+body {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
     gap: 0;
-
-    width: 100vw;
-    height: 100vh;
 }
 
 button,

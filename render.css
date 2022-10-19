@@ -2,9 +2,9 @@
     position: relative;
     inset: 0px;
     display: block;
-    font-family: system-ui;
+    font-family: var(--font);
     font-size: 1rem;
-    line-height: 32px;
+    line-height: 2rem;
     padding: 2rem 4rem;
     color: var(--ink);
     background-color: var(--paper);
@@ -40,7 +40,6 @@ a:visited {
 }
 
 a:hover {
-    /* color: mediumpurple; */
     text-decoration-color: var(--accent);
 }
 
@@ -99,14 +98,11 @@ td {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    /* border: 1px solid red; */
-    /* border-right: 1px solid var(--border); */
 }
 
 tr>td:last-child,
 tr>th:last-child {
     width: 30%;
-    /* border-right: none; */
     background-color: var(--surface-light);
 }
 

@@ -2,6 +2,7 @@
     --font: system-ui, sans-serif;
 
     --paper: white;
+    --paper-row: #fafafa;
     --ink-bold: black;
     --ink: #222;
     --ink-light: lightgray;
@@ -18,13 +19,14 @@
     --surface-light: seashell;
     --selection: papayaWhip;
 
-    --border: Gainsboro;
+    --border: #ececec;
 }
 
 
 @media (prefers-color-scheme:dark) {
     :root {
         --paper: #242424;
+        --paper-row: #202020;
 
         --ink-bold: #fff;
         --ink: #ccc;
@@ -42,7 +44,7 @@
         --surface-light: #323232;
         --selection: darkSlateBlue;
 
-        --border: rgba(255, 255, 255, 0.1);
+        --border: #444;
     }
 }
 

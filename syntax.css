@@ -27,7 +27,7 @@
 .cm-s-uxmap {
   height: 100%;
   /* border-right: 1px dashed var(--border); */
-  padding: 0rem 1.5rem 0 0;
+  padding: 0rem 0 0 0;
   line-height: 32px;
   font-size: 1rem;
   font-family: monospace;
@@ -39,13 +39,14 @@
 }
 
 .CodeMirror-code {
-  background-size: 100% 32px;
-  background-position: 0 -32px;
+  background-size: 100% 4rem;
+  background-position: 0 0;
   background-repeat: repeat-y;
   background-image: linear-gradient(to bottom,
       var(--paper),
       var(--paper) 31px,
-      var(--border));
+      var(--paper-row) 32px,
+      var(--paper-row));
 }
 
 .CodeMirror-gutters {

@@ -3,7 +3,10 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+
     <title>Sundown</title>
+
     <script src="https://cdn.jsdelivr.net/npm/dropbox@10.32.0/dist/Dropbox-sdk.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fcal/dist/fcal.js"></script>
@@ -13,7 +16,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.63.1/lib/codemirror.min.css" />
     <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌆</text></svg>">
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏕️</text></svg>">
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="syntax.css" />
     <link rel="stylesheet" href="render.css" />
@@ -24,14 +27,17 @@
 </head>
 
 <body>
-    <nav id="toolbar">
-        <button id="newFile">✨&ensp;New file</button>
-        <select name="filepicker" id="filepicker"></select>
+    <nav id="signed_out">
+        <div class="spacer"></div>
+        <button id="authlink">🔄&ensp;Sign in with Dropbox</button>
+    </nav>
+    <nav id="signed_in">
+        <button id="newFile">📒&ensp;New scratchpad</button>
+        <select id="filepicker" name="filepicker" ></select>
         <button id="status">🌏&ensp;Save</button>
     </nav>
     <main>
-        <!-- <nav id="filelist"></nav> -->
-        <textarea id="editor" style="visibility: hidden; display: none;"></textarea>
+        <textarea id="editor"></textarea>
         <div id="render"></div>
     </main>
     <script type="text/javascript" src="script.js"></script>

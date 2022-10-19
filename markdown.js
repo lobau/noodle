@@ -33,13 +33,10 @@ const render = () => {
     return Output.join("\n");
   });
 
-  // console.log(body_firstpass);
-
   // Then replace the { } with inline values
   body_secondpass = body_firstpass.replace(/{(.*?)}/gis, function (match, token) {
-    // remove {{ and }} from the string
+    // remove { and } from the string
     let expression = match.slice(1,-1);
-    // console.log(expression);
     let Lines = expression.split('\n');
     let Output = [];
     for(var i = 0; i < Lines.length; i++) {
@@ -55,9 +52,6 @@ const render = () => {
     }
     return Output.join("\n");
   });
-
-  // console.log(body_secondpass);
-
+  
   document.getElementById("render").innerHTML = marked.parse(body_secondpass);
-  // document.getElementById("render").innerHTML = body;
 };

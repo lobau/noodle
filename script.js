@@ -48,9 +48,24 @@ function stringToSeed(str) {
 
 function renderItems(items) {
     document.getElementById('newFile').addEventListener("click", function () {
-        let epoch = new Date().valueOf();
-        let filename = prompt('Filename (default is epoch)', epoch);
-        if (filename) {
+        new Date().toLocaleString() + "" + new Date().toLocaleTimeString() + " " + " Untitled";
+
+        const dt = new Date();
+        const padL = (nr, len = 2, chr = `0`) => `${nr}`.padStart(2, chr); // Pad left
+
+        let defaultName = `${
+            dt.getFullYear()}-${
+            padL(dt.getMonth()+1)}-${
+            padL(dt.getDate())} ${
+            
+            padL(dt.getHours())}:${
+            padL(dt.getMinutes())}:${
+            padL(dt.getSeconds())} Scratchpad`;
+
+        let filename = prompt('✏️ Document name', defaultName);
+        if (filename === null) {
+            return;
+        } else if (filename) {
             newFile(filename + ".md");
         } else {
             newFile(epoch + ".md");
@@ -111,6 +126,9 @@ if (isAuthenticated()) {
     const urlParams = new URLSearchParams(queryString);
     const selectedFile = urlParams.get('selectedFile');
 
+    document.getElementById("signed_out").style.display = "none";
+    document.getElementById("signed_in").style.display = "flex";
+
     window.editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
         mode: "markdown",
         theme: "uxmap",
@@ -136,6 +154,9 @@ if (isAuthenticated()) {
             console.error(error);
         });
 } else {
+    document.getElementById("signed_out").style.display = "flex";
+    document.getElementById("signed_in").style.display = "none";
+
     window.editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
         mode: "markdown",
         theme: "uxmap",
@@ -149,50 +170,38 @@ if (isAuthenticated()) {
         render();
     });
     window.editor.setValue(`# Welcome to Sundown
-Sundown is a markdown editor that supports inline calculations. Sundown is not a service, it doesn't have a server. It's just a local app. Here's [the source code](https://github.com/lobau/sundown).
+Sundown is a markdown editor that supports inline calculations. 
 
 ## Inline calculations
-Just assign variables and do calculations without breaking the flow of the text.
-Let's say you have { pizza = 3 } pizza and { guests = 8 } guests, then each guest will have **{ pizza / guests } pizza**. 
+Let's say you have { pizza = 3 } pizza and { guests = 8 } guests, then each guest will have **{ pizza / guests } pizza**.
+
+> 💡 Compare the editor on the left and the preview on the right!
 
 ## Calculation sheets
-Sometimes, you need a table to show your calculations in more details:
+Sometimes, you need a table to show your calculations in more details. Some things to try:
 {{
-pizza = 8
-guests = 17
-unit_price = 12
-per_guest = pizza / guests
-price_per_guest = unit_price * per_guest
+    log(23) 
+    23 % of 1023 
+    200 sec + 120 % 
+    30 minutes + 34 day in sec 
+    cos(PI) 
+    speed = 27 kph 
+    speed in mps  
+    456 as hex
 }}
 
 > ‼️ Note that the variables are always global to the document.
-
-
-## Some random things it can do
-{{
-log(23) 
-23 % of 1023 
-200 sec + 120 % 
-30 minutes + 34 day in sec 
-cos(PI) 
-speed = 27 kph 
-speed in mps  
-456 as hex
-}}
-
 
 ## Dropbox sync
 You can sync your notes using your Dropbox if you want. It will create the folder **Dropbox / Apps / Sundown** and store each note as a _.md_ file.
 
 > 🔒 The permissions are as limited as possible. Sundown can **only** access the **Dropbox / Apps / Sundown** folder (Dropbox, please improve your OAuth screen 🙏). You can even [register your own Dropbox app](https://developers.dropbox.com/) and change the app ID if you want nothing to do with me 😁
 
+## Web 1.0
+Sundown is just an html file, a couple css files, and a couple javascript files. It doesn't have a server app, it doesn't need one. You can download it and run it on your own computer, or host it anywhere you want. You can [get the code](https://gitlab.com/lobau/sundown) and / or help me make Sundown better!
+
 `);
     render();
-
-    var dropboxButton = document.createElement('button');
-    dropboxButton.id = "authlink";
-    dropboxButton.innerHTML = "🌏 Sign in with Dropbox";
-    document.getElementById('toolbar').appendChild(dropboxButton);
 
     var dbx = new Dropbox.Dropbox({ clientId: CLIENT_ID });
     let protocol;

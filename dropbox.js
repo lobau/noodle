@@ -37,9 +37,27 @@ function newFile(filename) {
     var dbx = new Dropbox.Dropbox({
         accessToken: window.access_token
     });
-    // TODO: better template
     const fileTemplate = `# Delete me and start writing
-Consult [the Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/) to get started.`
+
+## Markdown
+Consult [the Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/) to get started.
+
+## Inline calculations
+Let's say you have { pizza = 3 } pizza and { guests = 8 } guests, then each guest will have **{ pizza / guests } pizza**.
+
+## Calculation sheets
+Some things to try:
+{{
+    log(23) 
+    23 % of 1023 
+    200 sec + 120 % 
+    30 minutes + 34 day in sec 
+    cos(PI) 
+    speed = 27 kph 
+    speed in mps  
+    456 as hex
+}}
+`
     let file = new File([fileTemplate], filename, { type: "text/plain" });
 
     dbx.filesUpload({ path: "/" + file.name, contents: file })

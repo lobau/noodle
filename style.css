@@ -11,9 +11,9 @@
     --accent-hover: mediumpurple;
     --accent-active: darkorchid;
 
-    --button-bg: #363636;
-    --button-bg-hover: #484848;
-    --button-bg-pressed: #565656;
+    --button-bg: seashell;
+    --button-bg-hover: papayaWhip;
+    --button-bg-pressed: moccasin;
 
     --surface-light: seashell;
     --selection: papayaWhip;
@@ -153,15 +153,6 @@ main {
 
 .no-mobile {
     display: block;
-}
-
-.logo {
-    font: 400 1rem/2rem var(--font);
-    padding: 0.25rem 1rem;
-    color: var(--ink);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 

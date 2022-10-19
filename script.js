@@ -198,7 +198,7 @@ You can sync your notes using your Dropbox if you want. It will create the folde
 > 🔒 The permissions are as limited as possible. Sundown can **only** access the **Dropbox / Apps / Sundown** folder (Dropbox, please improve your OAuth screen 🙏). You can even [register your own Dropbox app](https://developers.dropbox.com/) and change the app ID if you want nothing to do with me 😁
 
 ## Web 1.0
-Sundown is just an html file, a couple css files, and a couple javascript files. It doesn't have a server app, it doesn't need one. You can download it and run it on your own computer, or host it anywhere you want. You can [get the code](https://gitlab.com/lobau/sundown) and / or help me make Sundown better!
+Sundown is just an html file, a couple css files, and a couple javascript files. It doesn't have a server app, it doesn't need one. You can download it and run it on your own computer, or host it anywhere you want. You can [get the code](https://github.com/lobau/sundown) and / or help me make Sundown better!
 
 `);
     render();

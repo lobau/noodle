@@ -1,0 +1,116 @@
+.todoEditor {
+    position: relative;
+    overflow-y: auto;
+    background-color: var(--paper-row);
+}
+
+.todoEditorScroll {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.todosContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.newItemRow {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: var(--paper); 
+
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+.todoRow {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+.todoRow:hover {
+    background-color: var(--paper); 
+}
+
+.todoCheckbox {
+    display: block;
+    min-width: 2rem;
+    max-width: 2rem;
+    width: 2rem;
+    height: 2rem;
+}
+
+.todoText {
+    padding: 0.5rem 0;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    max-width: 100%;
+}
+
+@keyframes strike {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+.todoComplete {
+    position: relative;
+    color: var(--ink-disabled);
+}
+
+.todoComplete::after {
+    content: ' ';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--ink-disabled);
+    animation-name: strike;
+    animation-duration: 0.25s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.todoToken {
+    font-size: 85%;
+}
+
+.todoEntry {
+    padding: 0;
+    background-color: red;
+}
+
+input[type="checkbox"] {
+    height: 1.5em;
+    width: 1.5em;
+    cursor: pointer;
+    position: relative;
+    margin-left: 0.5rem;
+}

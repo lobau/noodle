@@ -1,0 +1,174 @@
+:root {
+    --font: system-ui, sans-serif;
+    --rem: 15px;
+
+    --paper: white;
+    --paper-row: #fafafa;
+    --ink-bold: black;
+    --ink: #222;
+    --ink-light: lightgray;
+
+    --accent-light: lavender;
+    --accent: rebeccapurple;
+    --accent-hover: mediumpurple;
+    --accent-active: darkorchid;
+
+    --button-bg: seashell;
+    --button-bg-hover: papayaWhip;
+    --button-bg-pressed: moccasin;
+
+    --surface-light: seashell;
+    --selection: papayaWhip;
+
+    --border: #ececec;
+}
+
+
+@media (prefers-color-scheme:dark) {
+    :root {
+        --paper: #242424;
+        --paper-row: #202020;
+
+        --ink-bold: #fff;
+        --ink: #ccc;
+        --ink-light: #999;
+
+        --accent-light: peachPuff;
+        --accent: sandyBrown;
+        --accent-hover: chocolate;
+        --accent-active: sienna;
+
+        --button-bg: #363636;
+        --button-bg-hover: #484848;
+        --button-bg-pressed: #565656;
+
+        --surface-light: #323232;
+        --selection: darkSlateBlue;
+
+        --border: #444;
+    }
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-collapse: collapse;
+}
+
+::-moz-selection {
+    color: var(--ink-bold);
+    background: var(--selection);
+}
+
+::selection {
+    color: var(--ink-bold);
+    background: var(--selection);
+}
+
+html, body {
+    font-size: var(--rem);
+    font-family: var(--font);
+    width: 100vw;
+    height: 100vh;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 0;
+}
+
+button,
+select {
+    text-align: left;
+    font: 400 1rem/2rem var(--font);
+    padding: 0.25rem 1rem;
+    cursor: pointer;
+    color: var(--ink);
+    background-color: var(--button-bg);
+    transition: border-left 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+}
+
+button:hover,
+select:hover {
+    background-color: var(--button-bg-hover);
+}
+
+button:active,
+select:active {
+    background-color: var(--button-bg-pressed);
+}
+
+button {
+    width: fit-content;
+}
+
+select {
+    flex-grow: 1;
+}
+
+nav {
+    --spacing: 0.6rem;
+    display: flex;
+    width: calc(100% - var(--spacing) * 2);
+    height: fit-content;
+    padding: var(--spacing);
+    gap: var(--spacing);
+    background-color: var(--paper);
+    z-index: 1;
+    border-bottom: 1px dashed var(--border);
+}
+
+main {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    grid-template-columns: 1fr 1fr;
+    z-index: 0;
+}
+
+#editor {
+    position: relative;
+    height: 50vh;
+    visibility: hidden;
+    display: none;
+}
+
+#render {
+    display: block;
+    border-left: 1px dashed var(--border);
+}
+
+.spacer {
+    margin-left: auto;
+}
+
+.no-mobile {
+    display: block;
+}
+
+
+@media (max-width:56rem) {
+
+    #newFile {
+        display: none;
+    }
+
+    main {
+        grid-template-columns: 1fr;
+    }
+
+    #render {
+        display: none !important;
+    }
+}

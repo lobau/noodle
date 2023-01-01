@@ -3,44 +3,211 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
 
-    <title>Sundown</title>
+    <title>sundown.app</title>
+    <meta name="theme-color" content="#663399" />
 
-    <script src="https://cdn.jsdelivr.net/npm/dropbox@10.32.0/dist/Dropbox-sdk.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fcal/dist/fcal.js"></script>
+    <!-- Libraries used -->
+    <script src="lib/dropbox.js"></script>
+    <script src="lib/marked.js"></script>
+    <script src="lib/fcal.js"></script>
+    <script src="lib/jsTodoTxt.min.js"></script>
+    <script src="lib/codemirror.js"></script>
+    <link href="lib/codemirror.css" rel="stylesheet" />
+    <script src="lib/markdown.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.63.1/lib/codemirror.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.3/mode/markdown/markdown.min.js"></script>
+    <!-- Favicons -->
+    <link id="favicon" rel="shortcut icon" href="assets/favicon.svg">
+    <link rel="icon" type="image/svg" sizes="16x16" href="assets/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="64x64" href="assets/favicon_64x64.png" />
+    <link rel="apple-touch-icon" sizes="256x256" href="assets/favicon_256x256.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="assets/favicon_512x512.png" />
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.63.1/lib/codemirror.min.css" />
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏕️</text></svg>">
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="syntax.css" />
-    <link rel="stylesheet" href="render.css" />
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/egg.dropdown.css" />
+    <link rel="stylesheet" href="css/egg.sidebar.css" />
+    <link rel="stylesheet" href="css/picker.emoji.css" />
+    <link rel="stylesheet" href="css/editor.markdown.syntax.css" />
+    <link rel="stylesheet" href="css/editor.markdown.render.css" />
+    <link rel="stylesheet" href="css/editor.markdown.css" />
+    <link rel="stylesheet" href="css/editor.canvas.css" />
+    <link rel="stylesheet" href="css/editor.plaintext.css" />
+    <link rel="stylesheet" href="css/editor.calc.css" />
+    <link rel="stylesheet" href="css/editor.todo.css" />
 
-    <script type="text/javascript" src="utils.js"></script>
-    <script type="text/javascript" src="dropbox.js"></script>
-    <script type="text/javascript" src="markdown.js"></script>
+    <!-- Scripts -->
+    <script type="text/javascript" src="js/storage.local.js"></script>
+    <script type="text/javascript" src="js/storage.dropbox.js"></script>
+
+    <script type="text/javascript" src="js/editor.markdown.js"></script>
+    <script type="text/javascript" src="js/editor.canvas.js"></script>
+    <script type="text/javascript" src="js/editor.plaintext.js"></script>
+    <script type="text/javascript" src="js/editor.calc.js"></script>
+    <script type="text/javascript" src="js/editor.todo.js"></script>
+
+    <script type="text/javascript" src="js/picker.emoji.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+
+    <!-- SEO -->
+    <meta name="description"
+        content="A collection of text-based thinking tools, a place to noodle on your own. Local-first, free, open-source." />
+    <meta name="keywords" content="plaintext,markdown,editor,calculation,context,project" />
+
+    <!-- Analytics -->
+    <script defer data-domain="sundown.app" src="https://plausible.io/js/script.js"></script>
+
+    <!-- Basic Open Graph -->
+    <meta content="Home" itemProp="name" class="next-head" />
+    <meta
+        content="A collection of text-based thinking tools, a place to noodle on your own. Local-first, free, open-source."
+        itemProp="description" class="next-head" />
+    <meta content="https://noodle.page/assets/opengraph.jpg" itemProp="image" class="next-head" />
+
+    <!-- Generic Open Graph -->
+    <meta property="og:type" content="article" class="next-head" />
+    <meta content="Home" property="og:title" class="next-head" />
+    <meta content="https://noodle.page" property="og:url" class="next-head" />
+    <meta content="https://noodle.page/assets/opengraph.jpg" property="og:image" class="next-head" />
+    <meta
+        content="A collection of text-based thinking tools, a place to noodle on your own. Local-first, free, open-source."
+        property="og:description" class="next-head" />
+    <meta content="noodle.page" property="og:site_name" class="next-head" />
+
 </head>
 
 <body>
-    <nav id="signed_out">
-        <div class="spacer"></div>
-        <button id="authlink">🔄&ensp;Sign in with Dropbox</button>
-    </nav>
-    <nav id="signed_in">
-        <button id="newFile">📒&ensp;New scratchpad</button>
-        <select id="filepicker" name="filepicker" ></select>
-        <button id="status">🌏&ensp;Save</button>
-    </nav>
-    <main>
-        <textarea id="editor"></textarea>
-        <div id="render"></div>
+    <main id="app">
+        <nav id="sidebar" data-visible="true">
+            <div id="toolbar" class="stack horizontal">
+
+                <details id="newFileMenu" class="dropdown spaceRight">
+                    <summary><figure>🍜</figure>Create new</summary>
+                    <div class="left" style="width: 10rem">
+                        <button onclick="noodle.createNewFile('txt')">
+                            <figure>🅿️</figure>Plain text
+                        </button>
+                        <button onclick="noodle.createNewFile('md')">
+                            <figure>Ⓜ️</figure>Markdown
+                        </button>
+                        <button onclick="noodle.createNewFile('canvas')">
+                            <figure>🟨</figure>Canvas
+                        </button>
+                        <button onclick="noodle.createNewFile('calc')">
+                            <figure>♾️</figure>Calc sheet
+                        </button>
+                        <button onclick="noodle.createNewFile('todo')">
+                            <figure>✅</figure>Todo list
+                        </button>
+                    </div>
+                </details>
+
+                <details id="groupByMenu" class="dropdown">
+                    <summary id="groupByIcon"><figure class="disabled">•</figure></summary>
+                    <div class="right" style="width: 10rem">
+                        <p class="disabled">Group files</p>
+                        <hr />
+                        <button onclick="noodle.renderSidebar('recency');">
+                            <figure>🕒</figure>by recency
+                        </button>
+                        <button onclick="noodle.renderSidebar('context');">
+                            <figure>💬</figure>by @context
+                        </button>
+                        <button onclick="noodle.renderSidebar('project');">
+                            <figure>🚀</figure>by +project
+                        </button>
+                        <button class="disabled">
+                            <figure>🔠</figure>by name
+                        </button>
+                        <button class="disabled">
+                            <figure>🆔</figure>by type
+                        </button>
+                    </div>
+                </details>
+            </div>
+
+            <div id="fileList" class="stack vertical">
+                <details open="">
+                    <summary class="disabled">———</summary>
+                    <button class="fullwidth disabled">
+                        <figure>•</figure>———
+                    </button>
+                </details>
+            </div>
+
+        </nav>
+
+        <div id="dimLayer"></div>
+
+        <div id="main">
+            <div id="fileBar">
+                <button id="sidebarButton" data-visible="true"></button>
+
+                <button id="emojiPicker"><span class="disabled">•</span></button>
+                <input type="text" id="filenameInput" placeholder="—————" style="flex-grow: 1;" />
+
+                <div id="editorExtensions"></div>
+
+                <details id="fileMenu" class="dropdown">
+                    <summary id="fileMenuButton">⋮</summary>
+                    <div class="right" style="width: 16rem">
+                        <p id="status" class="disabled">———</p>
+                        <button onclick="noodle.storage.downloadFile()">
+                            <figure>⬇️</figure>Download
+                        </button>
+                        <button onclick="noodle.archiveFile()">
+                            <figure>✔️</figure>Archive
+                        </button>
+                        <button onclick="noodle.deleteFile()">
+                            <figure>❌</figure>Delete
+                        </button>
+                        <hr />
+                        <p class="disabled">Accessories</p>
+                        <button id="backgroundNoiseButton" onclick="noodle.toggleBackgroundNoise()">
+                            <figure>☕</figure>Background audio
+                        </button>
+                        <hr />
+                        <p id="storageData" class="disabled">—————</p>
+                        <button class="disabled" title="Coming soon!">
+                            <figure>⤵️</figure>Download backup
+                        </button>
+                        <button class="disabled" title="Coming soon!">
+                            <figure>⤴️</figure>Merge backup
+                        </button>
+                        <button onclick="noodle.logOut()">
+                            <figure>🔄</figure>Use a different storage
+                        </button>
+                    </div>
+                </details>
+            </div>
+            <div id="editor"></div>
+        </div>
     </main>
-    <script type="text/javascript" src="script.js"></script>
+
+    <aside id="landing">
+        <img class="logo" src="assets/favicon.svg" width="100%" height="100%" alt="A stylized bowl of noodles" />
+        <h1 style="padding: 2rem 0">noodle.page</h1>
+        <p>a collection of text-based thinking tools,</p>
+        <p style="padding-bottom: 2rem">a place to noodle on your own.</p>
+        <p style="padding-bottom: 2rem">Local first, private, free, <a href="https://gitlab.com/lobau/sundown"
+                target="_blank">open-source</a></p>
+        <div class="stack horizontal">
+            <button class="stroke" id="storageLocal"><abbr
+                    title="⚠️ This will not use ANY cloud. All your data will stay in your brower. It's very private, but if you clear this website site data, you will lose all your content!">Use
+                    the local storage</abbr></button>
+            <button class="stroke" id="storageDropbox"><abbr
+                    title="This will redirect you to the Dropbox sign-in page.">Use
+                    Dropbox</abbr></button>
+        </div>
+    </aside>
+
+    <div id="toast" data-visible="false"></div>
+
+    <script type="text/javascript">
+        const _ = el => document.querySelector(el)
+        const noodle = new App();
+    </script>
 </body>
 
 </html>

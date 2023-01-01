@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" fill="none">
+    <style>
+        :root {
+            --bowl-stroke: #8178e9;
+            --bowl-fill: #9993eb;
+            --noodle-fill: #ffeab6;
+            --noodle-fill-dark: #ffcd64;
+            --noodle-stroke: #ef9d0d;
+        }
+
+
+        @media (prefers-color-scheme:dark) {
+            :root {
+                --bowl-stroke: #8b80ff;
+                --bowl-fill: #756bff;
+                --noodle-fill: #ffb700;
+                --noodle-fill-dark: #f3a600;
+                --noodle-stroke: #ffe5b8;
+            }
+        }
+    </style>
+
+    <!-- noodle light fill -->
+    <circle cx="42" cy="42" r="40" fill="var(--noodle-fill)" />
+
+    <!-- noodle dark fill -->
+    <path fill="var(--noodle-fill-dark)"
+        d="M35.7 22.5A39.2 39.2 0 0 0 22.5 9 39.2 39.2 0 0 0 4 42h37c0-6.8-1.8-13.6-5.3-19.5Z" />
+
+    <!-- noodle stroke -->
+    <g stroke="var(--noodle-stroke)" stroke-width="6">
+        <path d="M32 18.3a25.9 25.9 0 0 1 33.8 11.9C68 34 69 38.5 69 43" />
+        <path d="M3 42a39 39 0 0 1 78 0" />
+        <path d="M39 28.6a13.7 13.7 0 0 1 16.5 7c1 2 1.5 4.2 1.5 6.4" />
+        <path d="M22 8a39.4 39.4 0 0 1 19.7 34.1" />
+        <path d="M11 16c5.3 2.2 9.9 5.8 13.1 10.5C27.3 31 29 36.5 29 42" />
+        <path d="M4 26a17 17 0 0 1 12.2 16.3" />
+    </g>
+
+    <!-- bowl fill -->
+    <path fill="var(--bowl-fill)" d="M42 84a42 42 0 0 0 42-42H0a42 42 0 0 0 42 42Z" />
+
+    <!-- bowl stroke -->
+    <path stroke="var(--bowl-stroke)" stroke-width="6" d="M81 42a39 39 0 0 1-78 0" class="stroke-shape" />
+
+</svg>

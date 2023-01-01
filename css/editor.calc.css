@@ -1,0 +1,48 @@
+.calcEditorContainer {
+    position: relative;
+    overflow-y: auto;
+}
+
+.calcEditorScroll {
+    gap: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.calcArea {
+    display: block;
+    width: 100%;
+    padding: 2rem;
+    min-height: calc(100vh - var(--toolbar-height));
+    color: var(--ink);
+
+    overflow-y: hidden;
+    box-sizing: border-box;
+
+    font-size: 1rem;
+    line-height: 2rem;
+}
+
+#calcInputArea {
+    background-size: 100% 4rem;
+    background-position: 0 0;
+    background-repeat: repeat-y;
+    background-image: linear-gradient(to bottom,
+            var(--paper),
+            var(--paper) calc(2rem - 1px),
+            var(--paper-row) 2rem,
+            var(--paper-row));
+}
+
+#responseArea {
+    background-color: var(--paper-row);
+    border-left: 1px solid var(--border);
+
+    color: var(--ink);
+    font-weight: 400;
+}
+
+.response_emphasis {
+    color: var(--color-cloud-ink);
+    font-weight: 700;
+}

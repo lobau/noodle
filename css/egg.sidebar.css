@@ -1,0 +1,68 @@
+#fileList {
+    padding: 0.5rem;
+}
+
+nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: var(--sidebar-width);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background-color: var(--paper);
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-right: 1px solid var(--border);
+    z-index: 99;
+    transition: var(--sidebar-transition);
+}
+
+#sidebar[data-visible="true"] {
+    left: 0;
+}
+
+#sidebar[data-visible="true"]~#main {
+    left: var(--main-left);
+}
+
+#sidebar[data-visible="false"] {
+    left: calc(-1 * var(--sidebar-width) - 1px);
+}
+
+#sidebar[data-visible="false"]~#main {
+    left: 0;
+}
+
+#sidebarButton[data-visible="true"]::before {
+    color: var(--ink-glyph);
+    content: "←";
+}
+
+#sidebarButton[data-visible="false"]::before {
+    color: var(--ink);
+    content: "→";
+}
+
+.sidebarSection{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* .sidebarSection>button {
+    margin-bottom: 0.5rem;
+} */
+
+.sidebarSectionTitle {
+    padding: 0.5rem;
+    color: var(--ink-disabled);
+    cursor: pointer;
+    font-weight: 700;
+    font-variation-settings: "wght" 700;
+    font-size: 0.85rem;
+    border-radius: 0.5rem;
+}
+

@@ -1,0 +1,141 @@
+#canvasEditor {
+    position: relative;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+.grabby {
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: var(--color);
+    outline: 1px solid var(--outline-color-selected);
+    outline-offset: -1px;
+    display: none;
+    box-shadow: var(--box-shadow-regular);
+}
+
+section {
+    --color: var(--paper-transparent);
+    --selected-color: var(--selection);
+    --outline-color: var(--border-bold);
+    --outline-color-selected: var(--border-selected);
+
+    background-color: var(--paper-row);
+    position: absolute;
+    border-radius: 0.5rem;
+}
+
+section.selected {
+    outline-color: var(--outline-color-selected);
+    background-color: var(--paper-row);
+    box-shadow: var(--box-shadow-regular);
+}
+
+section>p {
+    font-size: 1rem;
+    padding: 0.7rem 1rem 0.8rem 1rem;
+    color: inherit;
+    line-height: 1.5rem;
+    outline: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    inset: 0;
+
+    outline-width: 1px;
+    outline-color: var(--outline-color);
+    outline-offset: -1px;
+    outline-style: solid;
+
+    border-radius: 0.5rem;
+}
+
+section.selected>p {
+    color: var(--ink);
+    outline-color: var(--outline-color-selected);
+}
+
+
+section>p::selection {
+    color: inherit;
+    background: var(--selected-color);
+}
+
+section.selected:hover {
+    cursor: move;
+}
+
+section[data-decoration="1"] {
+    --color: var(--color-grape);
+    --selected-color: var(--color-grape-selection);
+    --outline-color: var(--color-grape-bold);
+    --outline-color-selected: var(--color-grape-border);
+
+    color: var(--color-grape-ink);
+    background-color: var(--color);
+    font-weight: 700;
+    font-variation-settings: "wght" 700;
+}
+
+section[data-decoration="2"] {
+    --color: var(--color-cloud);
+    --selected-color: var(--color-cloud-selection);
+    --outline-color: var(--color-cloud-bold);
+    --outline-color-selected: var(--color-cloud-border);
+
+    color: var(--color-cloud-ink);
+    background-color: var(--color);
+    font-weight: 700;
+    font-variation-settings: "wght" 700;
+}
+
+section[data-decoration="3"] {
+    --color: var(--color-grass);
+    --selected-color: var(--color-grass-selection);
+    --outline-color: var(--color-grass-bold);
+    --outline-color-selected: var(--color-grass-border);
+
+    color: var(--color-grass-ink);
+    background-color: var(--color);
+    font-weight: 700;
+    font-variation-settings: "wght" 700;
+}
+
+section[data-decoration="4"] {
+    --color: var(--color-lemon);
+    --selected-color: var(--color-lemon-selection);
+    --outline-color: var(--color-lemon-bold);
+    --outline-color-selected: var(--color-lemon-border);
+
+    color: var(--color-lemon-ink);
+    background-color: var(--color);
+    font-weight: 700;
+    font-variation-settings: "wght" 700;
+}
+
+section[data-decoration="5"] {
+    --color: var(--color-tangy);
+    --selected-color: var(--color-tangy-selection);
+    --outline-color: var(--color-tangy-bold);
+    --outline-color-selected: var(--color-tangy-border);
+
+    color: var(--color-tangy-ink);
+    background-color: var(--color);
+    font-weight: 700;
+    font-variation-settings: "wght" 700;
+}
+
+section[data-decoration="6"] {
+    --color: var(--color-brick);
+    --selected-color: var(--color-brick-selection);
+    --outline-color: var(--color-brick-bold);
+    --outline-color-selected: var(--color-brick-border);
+
+    color: var(--color-brick-ink);
+    background-color: var(--color);
+    font-weight: 700;
+    font-variation-settings: "wght" 700;
+}

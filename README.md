@@ -1,54 +1,76 @@
-# 🏕️ Sundown
-Sundown is a markdown editor that supports inline calculations. 
+# 🍜
+**noodle.page**
 
-## Inline calculations
+a collection of text-based thinking tools  
+a place to noodle on your own.
 
-In Sundown, if you type this:
+Use it at <https://noodle.page>
+
+noodle offers a simple environement to edit and manage various type of plaintext files.
+
+Draft notes, emails, make quick calculation sheets, sketch some diagrams.
+
+noodle can run entirely locally, using the browser localStorage, which makes it very private.
+noodle can also sync with dropbox, with very minimal permissions (basically access to one special folder, empty by default) 
+
+## a plain text editor
+noodle is a very simple editor of .txt files, with the ability to turn on some background noise if you need to concentrate. Perfect to draft this email or braindump.
+
+!["Screenshot of the plain text editor"](assets/plaintext.png)
+
+## a markdown editor
+noodle supports markdown files.
+!["Screenshot of the markdown editor"](assets/markdown.png)
+
+## a simple box / freeform canvas
+Sometimes you need to be able to move bits of text around to think. sort ideas, create hierachies, etc.
+
+noodle support a very simple format to store and render boxes. the format is just a JSON objects
+> TODO: change the format
+
+```json
+[{
+    "content": "plaintext content of the box",
+    "left": 144,
+    "top": 144,
+    "width": 264,
+    "height": 216,
+    "decoration": 5
+}]
 ```
-Let's say you have { pizza = 3 } pizza and { guests = 8 } guests, then each guest will have **{ pizza / guests } pizza**.
+
+Some tips to use the canvas:
+- Click anywhere on the grid and drag to create boxes
+- When a box is selected, hold the control key and scroll to switch between styles.
+- Right click on a box to send it to the back
+- Left click on a box to bring it to the front
+- The canvas are hardcoded at 8000px high for now 
+
+!["Screenshot of the canvas editor"](assets/canvas.png)
+
+## roadmap
+I would like to add some more things to noodle:
+- a dedicated calc sheet, a la soulver
+- a dedicated todo files support. I have to decide between todo.txt or taskpaper
+- a way to download / restore a backup, especially for localstorage users
+- google drive support
+- better mobile support
+- a more powerful canvas, with link previews, iframes, etc
+- PWA support
+
+## web 1.0
+noodle is just an html file, some stylesheets, and some javascript files. it doesn't have a server app. its code *is* it's source code. as a matter of fact, a goal for this project is to keep the code accessible and easy to read and understand.
+
+## dropbox sync
+You can sync your notes using your Dropbox if you want. It will create the folder **Dropbox / Apps / noodle.page**.
+
+The permissions are as limited as possible. noodle can **only** access the **Dropbox / Apps / noodle.page** folder.
+
+You can [register your own Dropbox app](https://developers.dropbox.com/) and change the value of `this.dbClientID` in main.js on line 5, if you prefer.
+
+## how to run
+locally, just launch an http server like the python's one:
+```bash
+python -m http.server
 ```
-
-it would render as:
-
-Let's say you have 3 pizza and 8 guests, then each guest will have **0.375  pizza**.
-
-## Calculation sheets
-Sometimes, you need a table to show your calculations in more details.
-```
-{{
-    log(23) 
-    23 % of 1023 
-    200 sec + 120 % 
-    30 minutes + 34 day in sec 
-    cos(PI) 
-    speed = 27 kph 
-    speed in mps  
-    456 as hex
-}}
-```
-
-In Sundown, it would render as:
-
-| Exp                        | Value                 |
-| -------------------------- | --------------------- |
-| log(23)                    | 1.3617278360175928789 |
-| 23 % of 1023               | 235.29                |
-| 200 sec + 120 %            | 440 Seconds           |
-| 30 minutes + 34 day in sec | 2,939,400 Seconds     |
-| cos(PI)                    | -1                    |
-| speed = 27 kph             | 27 km/h               |
-| speed in mps               | 7.5 m/s               |
-| 456 as hex                 | 456                   |
-
-> ‼️ Note that the variables are always global to the document.
-
-## Dropbox sync
-You can sync your notes using your Dropbox if you want. It will create the folder **Dropbox / Apps / Sundown** and store each note as a _.md_ file.
-
-> 🔒 The permissions are as limited as possible. Sundown can **only** access the **Dropbox / Apps / Sundown** folder (Dropbox, please improve your OAuth screen 🙏). You can even [register your own Dropbox app](https://developers.dropbox.com/) and change the app ID if you want nothing to do with me 😁
-
-## Web 1.0
-Sundown is just an html file, a couple css files, and a couple javascript files. It doesn't have a server app, it doesn't need one. You can download it and run it on your own computer, or host it anywhere you want.
-
-## How to install
-Just copy all the files in an http server and visit index.html. You will need to [register your own Dropbox app](https://developers.dropbox.com/) and change the CLIENT_ID variable in dropbox.js on line 1.
+and then visit http://localhost:8080/ in your browser.

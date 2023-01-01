@@ -1,0 +1,23 @@
+.markdownEditor {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.renderContainer {
+    display: block;
+}
+
+@media (max-width: 1000px) {
+    .markdownEditor {
+        grid-template-columns: 1fr;
+    }
+
+    .renderContainer {
+        display: none;
+    }
+}

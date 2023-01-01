@@ -1,0 +1,144 @@
+.renderContainer {
+    display: block;
+    font-family: var(--font);
+    font-size: 1rem;
+    line-height: 2rem;
+    padding: 2rem;
+    color: var(--ink);
+    background-color: var(--paper);
+    overflow: auto;
+    border-left: 1px solid var(--border);
+    box-shadow: var(--box-shadow-mini);
+}
+
+.markdownRender {
+    display: block;
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+.markdownRender>* {
+    margin-bottom: 2rem;
+}
+
+.markdownRender>ul,
+.markdownRender>blockquote>ul {
+    list-style: default;
+    margin-left: 2rem;
+}
+
+.markdownRender>ul ul,
+.markdownRender>blockquote>ul ul {
+    list-style: default;
+    margin-left: 2rem;
+}
+
+.markdownRender>ul li,
+.markdownRender>blockquote>ul li {
+    font-weight: 400;
+    font-variation-settings: "wght" 400;
+    font-size: 1rem;
+    line-height: 2rem;
+}
+
+a,
+a:link,
+a:visited {
+    display: inline;
+    position: relative;
+    padding: 2px;
+    color: var(--color-cloud-ink);
+    text-decoration-color: var(--color-cloud-ink);
+    font-weight: 600;
+    font-variation-settings: "wght" 600;
+}
+
+a:hover {
+    color: var(--ink);
+    text-decoration-color: var(--ink);
+}
+
+a:active {
+    color: var(--ink-bold);
+    text-decoration-color: var(--ink-bold);
+}
+
+
+.markdownRender>h1,
+.markdownRender>h2,
+.markdownRender>h3,
+.markdownRender>h4,
+.markdownRender>h5,
+.markdownRender>h6 {
+    color: var(--color-cloud-ink);
+    margin: 0 0 1rem 0;
+    display: block;
+    font-weight: 600;
+    font-variation-settings: "wght" 600;
+    text-align: left;
+}
+
+.markdownRender>p>img {
+    width: 100%;
+    height: auto;
+    border-radius: 1rem;
+}
+
+.markdownRender>blockquote, .markdownRender>pre {
+    padding: 0;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    display: block;
+}
+
+table {
+    display: block;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+    width: 100%;
+}
+
+tr {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+}
+
+th,
+td {
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+tr>td:last-child,
+tr>th:last-child {
+    width: 30%;
+    background-color: var(--paper);
+}
+
+
+tbody>tr:last-child {
+    border-bottom: none;
+}
+
+th:first-of-type {
+    border-top-left-radius: 10px;
+}
+
+th:last-of-type {
+    border-top-right-radius: 10px;
+}
+
+tr:last-of-type td:first-of-type {
+    border-bottom-left-radius: 10px;
+}
+
+tr:last-of-type td:last-of-type {
+    border-bottom-right-radius: 10px;
+}

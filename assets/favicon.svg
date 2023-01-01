@@ -1,0 +1,50 @@
+<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        :root {
+            --bowl-highlight: #aea7ff;
+            --bowl-stroke: #8178e9;
+            --bowl-fill: #9993eb;
+            --noodle-fill: #ffd876;
+            --noodle-fill-dark: #ffcd64;
+            --noodle-stroke: #ef9d0d;
+        }
+
+        @media (prefers-color-scheme:dark) {
+            :root {
+                --bowl-highlight: #aea7ff;
+                --bowl-stroke: #8b80ff;
+                --bowl-fill: #756bff;
+                --noodle-fill: #ffb700;
+                --noodle-fill-dark: #f3a600;
+                --noodle-stroke: #ffe5b8;
+            }
+        }
+    </style>
+    <clipPath id="mask">
+        <circle cx="8" cy="8" r="8"></circle>
+    </clipPath>
+    <clipPath id="bowl">
+        <rect x="0" y="8" width="16" height="8"></rect>
+    </clipPath>
+    <clipPath id="noodles">
+        <rect x="0" y="0" width="16" height="8"></rect>
+    </clipPath>
+    <g clip-path="url(#mask)">
+        <g clip-path="url(#noodles)">
+            <circle cx="8" cy="8" r="8" fill="var(--noodle-fill)"></circle>
+            <circle cx="8" cy="8" r="7.5" fill="none" stroke="var(--noodle-stroke)" stroke-width="1.5"></circle>
+            <circle cx="8" cy="8" r="4.75" fill="none" stroke="var(--noodle-stroke)" stroke-width="1.5"></circle>
+            <circle cx="8" cy="8" r="2" fill="none" stroke="var(--noodle-stroke)" stroke-width="1.5"></circle>
+            <circle cx="-0.5" cy="8" r="7" fill="var(--noodle-fill-dark)" stroke="var(--noodle-stroke)" stroke-width="1.5">
+            </circle>
+            <circle cx="-0.5" cy="8" r="4" fill="var(--noodle-fill-dark)" stroke="var(--noodle-stroke)" stroke-width="1.5">
+            </circle>
+            <circle cx="-0.5" cy="8" r="1" fill="var(--noodle-fill-dark)" stroke="var(--noodle-stroke)" stroke-width="1.5">
+            </circle>
+        </g>
+        <g clip-path="url(#bowl)">
+            <rect x="0" y="8" width="16" height="8" fill="var(--bowl-fill)"></rect>
+            <circle cx="8" cy="8" r="7.5" fill="none" stroke="var(--bowl-stroke)" stroke-width="1.5"></circle>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,74 @@
+/* LIST ITEMS */
+.cm-s-uxmap span.cm-variable-2 {
+  color: var(--ink);
+}
+
+/* CODE BLOCKS */
+.cm-s-uxmap span.cm-comment {
+  color: var(--color-grape-ink);
+  font-family: monospace;
+}
+
+/* LINK URL */
+.cm-s-uxmap span.cm-string {
+  color: var(--accent-hover);
+}
+
+/* HEADER */
+.cm-s-uxmap span.cm-header {
+  color: var(--color-cloud-ink);
+  font-weight: 600;
+  font-variation-settings: "wght" 600;
+}
+
+/* LINK LABELS and CHECKBOXES */
+.cm-s-uxmap span.cm-link {
+  color: var(--ink-bold);
+  text-decoration: none;
+}
+
+.cm-content {
+  padding-top: 2rem;
+}
+
+.cm-s-uxmap {
+  height: 100%;
+  line-height: 2rem;
+  font-size: 1rem;
+  /* font-family: var(--font); */
+  font-family: monospace;
+}
+
+.CodeMirror {
+  background-color: var(--paper-row);
+}
+
+.CodeMirror-code {
+  padding: 0 2rem 0 0;
+  color: var(--ink);
+}
+
+.CodeMirror-gutters {
+  background-color: transparent;
+  border: none;
+}
+
+.CodeMirror-lines {
+  padding: 2rem 0;
+}
+
+.CodeMirror-linenumber {
+  padding: 0 0.5rem;
+  width: 0.5rem;
+  color: var(--ink-disabled);
+  font-size: 0.8rem;
+  background-color: clear;
+}
+
+.CodeMirror div.CodeMirror-cursor {
+  border-left: 2px solid var(--ink);
+}
+
+.CodeMirror-selected {
+  background-color: var(--selection) !important;
+}

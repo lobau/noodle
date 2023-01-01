@@ -1,0 +1,88 @@
+.dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    z-index: 9999;
+}
+
+/* The button-like element */
+.dropdown>summary {
+    padding: 0 1rem;
+    height: var(--control-height);
+
+    cursor: pointer;
+    border-radius: 0.5rem;
+    width: fit-content;
+    min-width: 1rem;
+    max-width: 100%;
+    background-color: var(--button-bg);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    font-size: 1rem;
+    font-weight: 700;
+
+    background-color: var(--button-bg);
+}
+
+.dropdown summary::-webkit-details-marker {
+    display: none;
+}
+
+.dropdown>summary:hover {
+    background-color: var(--button-bg-hover);
+}
+
+.dropdown>div.left {
+    left: 0;
+}
+
+.dropdown>div.right {
+    right: 0;
+}
+
+.dropdown>div {
+    cursor: auto;
+    background: var(--paper);
+    padding: 0.5rem;
+    width: 10rem;
+    position: absolute;
+
+    top: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: var(--box-shadow-regular);
+    outline: 1px solid var(--border);
+
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.dropdown>div>button {
+    flex-grow: 1;
+    width: 100%;
+}
+
+.dropdown>div>p {
+    padding: 0.5rem;
+    width: 100%;
+}
+
+.dropdown[open] div {
+    animation: animateDown 0.15s ease-in-out forwards;
+}
+
+@keyframes animateDown {
+    0% {
+        opacity: 0;
+        transform: scale(0.95) translatey(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translatey(0.25rem);
+    }
+}
